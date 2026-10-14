@@ -1,0 +1,728 @@
+fileFormatVersion: 2
+guid: 2f0b14270b0b9fe41b331f636d2de7c4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7831823781394246941
+    second: enemy_blood_05_0
+  - first:
+      213: 2751422898268881391
+    second: enemy_blood_05_1
+  - first:
+      213: -6270531497776924269
+    second: enemy_blood_05_2
+  - first:
+      213: -7988525300127555209
+    second: enemy_blood_05_3
+  - first:
+      213: -8297495002751945004
+    second: enemy_blood_05_4
+  - first:
+      213: -6157079264653133687
+    second: enemy_blood_05_5
+  - first:
+      213: 5549601373849714550
+    second: enemy_blood_05_6
+  - first:
+      213: -7891476844132554105
+    second: enemy_blood_05_7
+  - first:
+      213: 2623055089404639229
+    second: enemy_blood_05_8
+  - first:
+      213: 5667721041983757945
+    second: enemy_blood_05_9
+  - first:
+      213: -8025139169563281354
+    second: enemy_blood_05_10
+  - first:
+      213: 2182898019443746610
+    second: enemy_blood_05_11
+  - first:
+      213: 2289614987379626433
+    second: enemy_blood_05_12
+  - first:
+      213: -3864035831515045453
+    second: enemy_blood_05_13
+  - first:
+      213: 4011475672563941709
+    second: enemy_blood_05_14
+  - first:
+      213: -319969520582601112
+    second: enemy_blood_05_15
+  - first:
+      213: 4377024306152825695
+    second: enemy_blood_05_16
+  - first:
+      213: -5774822143303425726
+    second: enemy_blood_05_17
+  - first:
+      213: -1239198075708299587
+    second: enemy_blood_05_18
+  - first:
+      213: 5323360921413124677
+    second: enemy_blood_05_19
+  - first:
+      213: -309670789819819535
+    second: enemy_blood_05_20
+  - first:
+      213: 6359460663510507509
+    second: enemy_blood_05_21
+  - first:
+      213: -1026743119375038732
+    second: enemy_blood_05_22
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: enemy_blood_05_0
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 347
+        width: 20
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e21a8ef3c5cf4390800000000000000
+      internalID: -7831823781394246941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_blood_05_1
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 353
+        width: 35
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe1413e5c840f2620800000000000000
+      internalID: 2751422898268881391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_blood_05_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 238
+        width: 192
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 399bb1253d89af8a0800000000000000
+      internalID: -6270531497776924269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_blood_05_3
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 316
+        width: 18
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7712da6809e032190800000000000000
+      internalID: -7988525300127555209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_blood_05_4
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 312
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d6346bc14069dc80800000000000000
+      internalID: -8297495002751945004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_blood_05_5
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 325
+        width: 18
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9883d68c709ad8aa0800000000000000
+      internalID: -6157079264653133687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_blood_05_6
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 323
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67ff455eb05240d40800000000000000
+      internalID: 5549601373849714550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_blood_05_7
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 309
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78a22400f97db7290800000000000000
+      internalID: -7891476844132554105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_blood_05_8
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 292
+        width: 35
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df77e3ec4b6f66420800000000000000
+      internalID: 2623055089404639229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_blood_05_9
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 219
+        width: 73
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97ed271424ac7ae40800000000000000
+      internalID: 5667721041983757945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_blood_05_10
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 288
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6387b1db17af0a090800000000000000
+      internalID: -8025139169563281354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_blood_05_11
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 285
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23729d5ee263b4e10800000000000000
+      internalID: 2182898019443746610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_blood_05_12
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 291
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c15c2b33b856cf10800000000000000
+      internalID: 2289614987379626433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_blood_05_13
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 252
+        width: 21
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b12a2f32ef206ac0800000000000000
+      internalID: -3864035831515045453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_blood_05_14
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 251
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d418b48dedf9ba730800000000000000
+      internalID: 4011475672563941709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_blood_05_15
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 230
+        width: 31
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 866d8b29a6d3f8bf0800000000000000
+      internalID: -319969520582601112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_blood_05_16
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 201
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f536d7d7a605ebc30800000000000000
+      internalID: 4377024306152825695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_blood_05_17
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 200
+        width: 29
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 241e6536bd5bbdfa0800000000000000
+      internalID: -5774822143303425726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_blood_05_18
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 194
+        width: 29
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db62f0b6aeb7dcee0800000000000000
+      internalID: -1239198075708299587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_blood_05_19
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 170
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 542860cbd8060e940800000000000000
+      internalID: 5323360921413124677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_blood_05_20
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 170
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f9997fae04d3bbf0800000000000000
+      internalID: -309670789819819535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_blood_05_21
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 129
+        width: 59
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ff1d9397c7514850800000000000000
+      internalID: 6359460663510507509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_blood_05_22
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 152
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f60316a29640c1f0800000000000000
+      internalID: -1026743119375038732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      enemy_blood_05_0: -7831823781394246941
+      enemy_blood_05_1: 2751422898268881391
+      enemy_blood_05_10: -8025139169563281354
+      enemy_blood_05_11: 2182898019443746610
+      enemy_blood_05_12: 2289614987379626433
+      enemy_blood_05_13: -3864035831515045453
+      enemy_blood_05_14: 4011475672563941709
+      enemy_blood_05_15: -319969520582601112
+      enemy_blood_05_16: 4377024306152825695
+      enemy_blood_05_17: -5774822143303425726
+      enemy_blood_05_18: -1239198075708299587
+      enemy_blood_05_19: 5323360921413124677
+      enemy_blood_05_2: -6270531497776924269
+      enemy_blood_05_20: -309670789819819535
+      enemy_blood_05_21: 6359460663510507509
+      enemy_blood_05_22: -1026743119375038732
+      enemy_blood_05_3: -7988525300127555209
+      enemy_blood_05_4: -8297495002751945004
+      enemy_blood_05_5: -6157079264653133687
+      enemy_blood_05_6: 5549601373849714550
+      enemy_blood_05_7: -7891476844132554105
+      enemy_blood_05_8: 2623055089404639229
+      enemy_blood_05_9: 5667721041983757945
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

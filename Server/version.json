@@ -1,0 +1,7 @@
+{
+  "version": "1.0.0",
+  "title": "发现新版本",
+  "message": "新的游戏内容已准备好，可以立即更新。",
+  "luaUrl": "game_rules.lua.txt",
+  "catalogUrl": ""
+}

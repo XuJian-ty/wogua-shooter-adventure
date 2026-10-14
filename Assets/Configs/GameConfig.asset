@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f85e743b77b3e449a96fea4e169f5e7, type: 3}
+  m_Name: GameConfig
+  m_EditorClassIdentifier: Assembly-CSharp::WoguaShooter.Config.GameConfig
+  pea:
+    type: 0
+    fireInterval: 0.6
+    projectileSpeed: 12
+    explosionRadius: 0
+    duration: 0
+  machineGun:
+    type: 1
+    fireInterval: 0.5
+    projectileSpeed: 15
+    explosionRadius: 0
+    duration: 10
+  cornCannon:
+    type: 2
+    fireInterval: 0.5
+    projectileSpeed: 11
+    explosionRadius: 1.8
+    duration: 10
+  jumpForce: 10
+  secondJumpForce: 8.5
+  playerInvincibleTime: 1.2
+  glideHoldDelay: 0.12
+  glideDescentSpeed: 0.45
+  glideVisualAngle: -12
+  stompHeightTolerance: 0.2
+  groundY: -1.28
+  groundHeight: 0.3
+  backgroundStartSpeed: 3
+  backgroundMaxSpeed: 5.5
+  backgroundSpeedHalfTime: 50
+  enemyStartInterval: 2.1
+  enemyIntervalAcceleration: 0.035
+  enemyMinInterval: 0.6
+  enemySpawnX: 10
+  enemySpawnYRange: {x: -1.25, y: 1.35}
+  scorePerEnemy: 10
+  enemyHitFlashDuration: 0.08
+  enemyHitShakeDuration: 0.12
+  enemyHitShakeStrength: 0.08
+  enemyDeathDuration: 0.22
+  cornExplosionEffectDuration: 0.5
+  waveFlightDuration: 8
+  waveFlightAmplitude: 0.42
+  waveFlightFrequency: 2.4
+  modifierDuration: 10
+  spreadAngle: 18
+  repeaterDelay: 0.2
+  dualMuzzleDelay: 0.2
+  machineGunBurstDelay: 0.2
+  dualMuzzleOffset: 0.055
+  dualMuzzleAngle: 4

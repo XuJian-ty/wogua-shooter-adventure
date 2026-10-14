@@ -1,0 +1,1560 @@
+fileFormatVersion: 2
+guid: ae736a30f49e43c42b7233eadb866208
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3367418521133554404
+    second: corn_explosion_05_0
+  - first:
+      213: 1060318907096607078
+    second: corn_explosion_05_1
+  - first:
+      213: 3261678128226507943
+    second: corn_explosion_05_2
+  - first:
+      213: -5649098822148336583
+    second: corn_explosion_05_3
+  - first:
+      213: -6831734034348743006
+    second: corn_explosion_05_4
+  - first:
+      213: 1894606214925159454
+    second: corn_explosion_05_5
+  - first:
+      213: 6401228459484404231
+    second: corn_explosion_05_6
+  - first:
+      213: 5992817272682834151
+    second: corn_explosion_05_7
+  - first:
+      213: -6943823694510572286
+    second: corn_explosion_05_8
+  - first:
+      213: 7164759750014275991
+    second: corn_explosion_05_9
+  - first:
+      213: 3205964558635062024
+    second: corn_explosion_05_10
+  - first:
+      213: 7058921533271914257
+    second: corn_explosion_05_11
+  - first:
+      213: 3084298403019039233
+    second: corn_explosion_05_12
+  - first:
+      213: 8559314047591049638
+    second: corn_explosion_05_13
+  - first:
+      213: -287432563023808834
+    second: corn_explosion_05_14
+  - first:
+      213: 4429290396943037418
+    second: corn_explosion_05_15
+  - first:
+      213: -2664281454829877249
+    second: corn_explosion_05_16
+  - first:
+      213: 6041296351470843967
+    second: corn_explosion_05_17
+  - first:
+      213: 6248466425058588660
+    second: corn_explosion_05_18
+  - first:
+      213: 7404558532654320378
+    second: corn_explosion_05_19
+  - first:
+      213: 8503796270649599803
+    second: corn_explosion_05_20
+  - first:
+      213: 5528788927110567497
+    second: corn_explosion_05_21
+  - first:
+      213: 5173435576846491007
+    second: corn_explosion_05_22
+  - first:
+      213: -57349151039504015
+    second: corn_explosion_05_23
+  - first:
+      213: -6480979342928102180
+    second: corn_explosion_05_24
+  - first:
+      213: -966382547757424603
+    second: corn_explosion_05_25
+  - first:
+      213: -7284514273558346213
+    second: corn_explosion_05_26
+  - first:
+      213: 8872974626745132134
+    second: corn_explosion_05_27
+  - first:
+      213: 3797833060175514514
+    second: corn_explosion_05_28
+  - first:
+      213: -196382840807675237
+    second: corn_explosion_05_29
+  - first:
+      213: 8127896446268803444
+    second: corn_explosion_05_30
+  - first:
+      213: 5762681297113402309
+    second: corn_explosion_05_31
+  - first:
+      213: 5065910310200907658
+    second: corn_explosion_05_32
+  - first:
+      213: 444917286125721012
+    second: corn_explosion_05_33
+  - first:
+      213: 1940034607152174233
+    second: corn_explosion_05_34
+  - first:
+      213: -6897048766172020369
+    second: corn_explosion_05_35
+  - first:
+      213: 3098321073173713068
+    second: corn_explosion_05_36
+  - first:
+      213: -603714979408880902
+    second: corn_explosion_05_37
+  - first:
+      213: 1375211932719229974
+    second: corn_explosion_05_38
+  - first:
+      213: -5350780184945854720
+    second: corn_explosion_05_39
+  - first:
+      213: 5001251212416450708
+    second: corn_explosion_05_40
+  - first:
+      213: 3005956105750084852
+    second: corn_explosion_05_41
+  - first:
+      213: 3995735170838971621
+    second: corn_explosion_05_42
+  - first:
+      213: -171736623992444719
+    second: corn_explosion_05_43
+  - first:
+      213: -134645750399747021
+    second: corn_explosion_05_44
+  - first:
+      213: 210309125281310027
+    second: corn_explosion_05_45
+  - first:
+      213: 5927707684029942174
+    second: corn_explosion_05_46
+  - first:
+      213: -6276120187686512291
+    second: corn_explosion_05_47
+  - first:
+      213: 3908921524421981250
+    second: corn_explosion_05_48
+  - first:
+      213: 8526179427129013941
+    second: corn_explosion_05_49
+  - first:
+      213: -2354256924358583683
+    second: corn_explosion_05_50
+  - first:
+      213: 9177279328781982907
+    second: corn_explosion_05_51
+  - first:
+      213: 2044482002222881615
+    second: corn_explosion_05_52
+  - first:
+      213: 1046211706642962500
+    second: corn_explosion_05_53
+  - first:
+      213: 7939882489076416268
+    second: corn_explosion_05_54
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: corn_explosion_05_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 488
+        width: 512
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ea9c3abd497bbe20800000000000000
+      internalID: 3367418521133554404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_1
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 0
+        width: 30
+        height: 488
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 669af1e9d6207be00800000000000000
+      internalID: 1060318907096607078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 406
+        width: 10
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ac1a9cf9fec34d20800000000000000
+      internalID: 3261678128226507943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_3
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 447
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93455cc2d8e5a91b0800000000000000
+      internalID: -5649098822148336583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_4
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 412
+        width: 39
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a662b2871ec031a0800000000000000
+      internalID: -6831734034348743006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_5
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 431
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1c8cdd705efa4a10800000000000000
+      internalID: 1894606214925159454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_6
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 450
+        width: 22
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70a50b56e5bb5d850800000000000000
+      internalID: 6401228459484404231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_7
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 432
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e8e516ee83ca2350800000000000000
+      internalID: 5992817272682834151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_8
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 431
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20db1c9c32592af90800000000000000
+      internalID: -6943823694510572286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_9
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 425
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7911e9838075e6360800000000000000
+      internalID: 7164759750014275991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_10
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 392
+        width: 50
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8035fe7b7cfdd7c20800000000000000
+      internalID: 3205964558635062024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_11
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 416
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11737081cb356f160800000000000000
+      internalID: 7058921533271914257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_12
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 382
+        width: 35
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10221456e01adca20800000000000000
+      internalID: 3084298403019039233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_13
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 336
+        width: 43
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a9ecafe6cac8c670800000000000000
+      internalID: 8559314047591049638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_14
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 374
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb6f5185b95d20cf0800000000000000
+      internalID: -287432563023808834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_15
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 363
+        width: 22
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae3b6dc0620087d30800000000000000
+      internalID: 4429290396943037418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_16
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 336
+        width: 28
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff7443ff122960bd0800000000000000
+      internalID: -2664281454829877249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_17
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 316
+        width: 60
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f387844060ff6d350800000000000000
+      internalID: 6041296351470843967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_18
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 314
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f772989b1307b650800000000000000
+      internalID: 6248466425058588660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_19
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 322
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afac27121c642c660800000000000000
+      internalID: 7404558532654320378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_20
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 280
+        width: 23
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b376c5237ad830670800000000000000
+      internalID: 8503796270649599803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_21
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 282
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 946d9868c343abc40800000000000000
+      internalID: 5528788927110567497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_22
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 289
+        width: 17
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7d9d424f3cbbc740800000000000000
+      internalID: 5173435576846491007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_23
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 269
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 171ce104041443ff0800000000000000
+      internalID: -57349151039504015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_24
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 276
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdc302410afee06a0800000000000000
+      internalID: -6480979342928102180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_25
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 242
+        width: 44
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52028c36138b692f0800000000000000
+      internalID: -966382547757424603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_26
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 216
+        width: 38
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b16ca4bfcd438ea90800000000000000
+      internalID: -7284514273558346213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_27
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 242
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 664a2387963232b70800000000000000
+      internalID: 8872974626745132134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_28
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 236
+        width: 15
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29b0ff3eb0d94b430800000000000000
+      internalID: 3797833060175514514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_29
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 232
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9a2da5c8de464df0800000000000000
+      internalID: -196382840807675237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_30
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 190
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 479030321c61cc070800000000000000
+      internalID: 8127896446268803444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_31
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 188
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cb4b349b1829ff40800000000000000
+      internalID: 5762681297113402309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_32
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 127
+        width: 39
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a879387369abd4640800000000000000
+      internalID: 5065910310200907658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_33
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 198
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b554f91ae9ac2600800000000000000
+      internalID: 444917286125721012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_34
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 169
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 994154b42336cea10800000000000000
+      internalID: 1940034607152174233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_35
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 166
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6145c570b2c840a0800000000000000
+      internalID: -6897048766172020369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_36
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 158
+        width: 29
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca050a6b9927ffa20800000000000000
+      internalID: 3098321073173713068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_37
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 155
+        width: 26
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afa50c2cc6c2f97f0800000000000000
+      internalID: -603714979408880902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_38
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 100
+        width: 8
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61cab9477fbb51310800000000000000
+      internalID: 1375211932719229974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_39
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 103
+        width: 63
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0077a1d75c53eb5b0800000000000000
+      internalID: -5350780184945854720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_40
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 141
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 490039cda73086540800000000000000
+      internalID: 5001251212416450708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_41
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fc76a5e62d47b920800000000000000
+      internalID: 3005956105750084852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_42
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 103
+        width: 36
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e44462b7f3b37730800000000000000
+      internalID: 3995735170838971621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_43
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 72
+        width: 6
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d8610c437edd9df0800000000000000
+      internalID: -171736623992444719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_44
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 90
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33c38e44764a12ef0800000000000000
+      internalID: -134645750399747021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_45
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 82
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b456a61090b2be200800000000000000
+      internalID: 210309125281310027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_46
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 95
+        width: 19
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9945f67bb2734250800000000000000
+      internalID: 5927707684029942174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_47
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 69
+        width: 16
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d59994d01fdb6e8a0800000000000000
+      internalID: -6276120187686512291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_48
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 78
+        width: 38
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 244fc068a674f3630800000000000000
+      internalID: 3908921524421981250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_49
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 86
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b6b44de303135670800000000000000
+      internalID: 8526179427129013941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_50
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 56
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7a5a99fccff35fd0800000000000000
+      internalID: -2354256924358583683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_51
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 0
+        width: 32
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbcd59c1dee3c5f70800000000000000
+      internalID: 9177279328781982907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_52
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 0
+        width: 16
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4b9c248c857f5c10800000000000000
+      internalID: 2044482002222881615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_53
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 0
+        width: 57
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4481f4e0104e48e00800000000000000
+      internalID: 1046211706642962500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: corn_explosion_05_54
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 87
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0f7eb77e01203e60800000000000000
+      internalID: 7939882489076416268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      corn_explosion_05_0: 3367418521133554404
+      corn_explosion_05_1: 1060318907096607078
+      corn_explosion_05_10: 3205964558635062024
+      corn_explosion_05_11: 7058921533271914257
+      corn_explosion_05_12: 3084298403019039233
+      corn_explosion_05_13: 8559314047591049638
+      corn_explosion_05_14: -287432563023808834
+      corn_explosion_05_15: 4429290396943037418
+      corn_explosion_05_16: -2664281454829877249
+      corn_explosion_05_17: 6041296351470843967
+      corn_explosion_05_18: 6248466425058588660
+      corn_explosion_05_19: 7404558532654320378
+      corn_explosion_05_2: 3261678128226507943
+      corn_explosion_05_20: 8503796270649599803
+      corn_explosion_05_21: 5528788927110567497
+      corn_explosion_05_22: 5173435576846491007
+      corn_explosion_05_23: -57349151039504015
+      corn_explosion_05_24: -6480979342928102180
+      corn_explosion_05_25: -966382547757424603
+      corn_explosion_05_26: -7284514273558346213
+      corn_explosion_05_27: 8872974626745132134
+      corn_explosion_05_28: 3797833060175514514
+      corn_explosion_05_29: -196382840807675237
+      corn_explosion_05_3: -5649098822148336583
+      corn_explosion_05_30: 8127896446268803444
+      corn_explosion_05_31: 5762681297113402309
+      corn_explosion_05_32: 5065910310200907658
+      corn_explosion_05_33: 444917286125721012
+      corn_explosion_05_34: 1940034607152174233
+      corn_explosion_05_35: -6897048766172020369
+      corn_explosion_05_36: 3098321073173713068
+      corn_explosion_05_37: -603714979408880902
+      corn_explosion_05_38: 1375211932719229974
+      corn_explosion_05_39: -5350780184945854720
+      corn_explosion_05_4: -6831734034348743006
+      corn_explosion_05_40: 5001251212416450708
+      corn_explosion_05_41: 3005956105750084852
+      corn_explosion_05_42: 3995735170838971621
+      corn_explosion_05_43: -171736623992444719
+      corn_explosion_05_44: -134645750399747021
+      corn_explosion_05_45: 210309125281310027
+      corn_explosion_05_46: 5927707684029942174
+      corn_explosion_05_47: -6276120187686512291
+      corn_explosion_05_48: 3908921524421981250
+      corn_explosion_05_49: 8526179427129013941
+      corn_explosion_05_5: 1894606214925159454
+      corn_explosion_05_50: -2354256924358583683
+      corn_explosion_05_51: 9177279328781982907
+      corn_explosion_05_52: 2044482002222881615
+      corn_explosion_05_53: 1046211706642962500
+      corn_explosion_05_54: 7939882489076416268
+      corn_explosion_05_6: 6401228459484404231
+      corn_explosion_05_7: 5992817272682834151
+      corn_explosion_05_8: -6943823694510572286
+      corn_explosion_05_9: 7164759750014275991
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

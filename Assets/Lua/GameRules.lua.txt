@@ -1,0 +1,10 @@
+-- 业务参数放在 Lua，后续可以单独替换这个文件做热更新。
+GameRules = {}
+
+function GameRules.GetEnemySpawnInterval(elapsedTime, startInterval, acceleration, minInterval)
+    local value = startInterval - elapsedTime * acceleration
+    if value < minInterval then
+        value = minInterval
+    end
+    return value
+end

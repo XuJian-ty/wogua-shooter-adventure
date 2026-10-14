@@ -1,0 +1,10 @@
+-- This file is downloaded only after the player accepts an update.
+GameRules = {}
+
+function GameRules.GetEnemySpawnInterval(elapsedTime, startInterval, acceleration, minInterval)
+    local value = startInterval - elapsedTime * acceleration
+    if value < minInterval then
+        value = minInterval
+    end
+    return value
+end
