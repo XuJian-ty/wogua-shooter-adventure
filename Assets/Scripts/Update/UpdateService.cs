@@ -6,6 +6,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.AddressableAssets.ResourceLocators;
 using UnityEngine.Networking;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.UI;
 using WoguaShooter.Config;
 using WoguaShooter.Lua;
 using WoguaShooter.UI;
@@ -24,6 +25,7 @@ namespace WoguaShooter.Update
 
         private UpdateManifest availableUpdate;
         private bool updating;
+        private StartupUpdateStatusView startupStatus;
 
         public bool IsCheckFinished { get; private set; }
         public bool HasPendingUpdate => availableUpdate != null && panel != null && panel.gameObject.activeInHierarchy;
@@ -49,6 +51,17 @@ namespace WoguaShooter.Update
                 yield break;
             }
 
+            Canvas canvas = panel != null
+                ? panel.GetComponentInParent<Canvas>(true)
+                : FindFirstObjectByType<Canvas>(FindObjectsInactive.Include);
+            Font font = null;
+            if (panel != null)
+            {
+                Text[] panelTexts = panel.GetComponentsInChildren<Text>(true);
+                if (panelTexts.Length > 0)
+                    font = panelTexts[0].font;
+            }
+            startupStatus = StartupUpdateStatusView.Create(canvas, font);
             yield return CheckForUpdate();
         }
 
@@ -57,11 +70,15 @@ namespace WoguaShooter.Update
             IsCheckFinished = false;
             if (config == null || string.IsNullOrWhiteSpace(config.manifestUrl))
             {
+                startupStatus?.ShowConnectionFailed();
+                if (startupStatus != null)
+                    yield return startupStatus.HideAfter(1.2f);
                 IsCheckFinished = true;
                 CheckFinished?.Invoke(false);
                 yield break;
             }
 
+            startupStatus?.ShowConnecting();
             using (UnityWebRequest request = UnityWebRequest.Get(config.manifestUrl))
             {
                 request.timeout = config.timeoutSeconds;
@@ -70,21 +87,35 @@ namespace WoguaShooter.Update
                 if (request.result != UnityWebRequest.Result.Success)
                 {
                     Debug.Log($"更新服务器不可用，继续离线游戏：{request.error}");
+                    startupStatus?.ShowConnectionFailed();
+                    if (startupStatus != null)
+                        yield return startupStatus.HideAfter(1.2f);
                     IsCheckFinished = true;
                     CheckFinished?.Invoke(false);
                     yield break;
                 }
 
                 Debug.Log("更新清单请求成功：" + request.downloadHandler.text);
+                startupStatus?.ShowChecking();
+                yield return new WaitForSecondsRealtime(0.35f);
 
-                UpdateManifest manifest;
+                UpdateManifest manifest = null;
+                string manifestError = null;
                 try
                 {
                     manifest = JsonUtility.FromJson<UpdateManifest>(request.downloadHandler.text);
                 }
                 catch (Exception exception)
                 {
-                    Debug.LogWarning("更新清单格式错误，已跳过检查：" + exception.Message);
+                    manifestError = exception.Message;
+                }
+
+                if (!string.IsNullOrEmpty(manifestError) || manifest == null || string.IsNullOrWhiteSpace(manifest.version))
+                {
+                    Debug.LogWarning("更新清单格式错误，已跳过检查：" + manifestError);
+                    startupStatus?.ShowInvalidResponse();
+                    if (startupStatus != null)
+                        yield return startupStatus.HideAfter(1.2f);
                     IsCheckFinished = true;
                     CheckFinished?.Invoke(false);
                     yield break;
@@ -92,8 +123,11 @@ namespace WoguaShooter.Update
 
                 string currentVersion = PlayerPrefs.GetString(ContentVersionKey, Application.version);
                 Debug.Log($"更新版本比较：remote={manifest?.version}, current={currentVersion}");
-                if (manifest == null || string.IsNullOrWhiteSpace(manifest.version) || !IsNewer(manifest.version, currentVersion))
+                if (!IsNewer(manifest.version, currentVersion))
                 {
+                    startupStatus?.ShowUpToDate();
+                    if (startupStatus != null)
+                        yield return startupStatus.HideAfter(0.65f);
                     IsCheckFinished = true;
                     CheckFinished?.Invoke(false);
                     yield break;
@@ -103,6 +137,9 @@ namespace WoguaShooter.Update
                 if (panel != null)
                 {
                     Debug.Log("显示更新弹窗：" + manifest.version);
+                    startupStatus?.ShowUpdateFound();
+                    if (startupStatus != null)
+                        yield return startupStatus.HideAfter(0.25f);
                     panel.Show(manifest, StartUpdate, SkipUpdate);
                     IsCheckFinished = true;
                     CheckFinished?.Invoke(true);
@@ -110,6 +147,9 @@ namespace WoguaShooter.Update
                 else
                 {
                     Debug.LogWarning("检测到新版本，但场景中没有更新面板。");
+                    startupStatus?.ShowInvalidResponse();
+                    if (startupStatus != null)
+                        yield return startupStatus.HideAfter(1.2f);
                     IsCheckFinished = true;
                     CheckFinished?.Invoke(true);
                 }

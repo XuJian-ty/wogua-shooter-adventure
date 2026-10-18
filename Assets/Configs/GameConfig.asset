@@ -63,3 +63,9 @@ MonoBehaviour:
   machineGunBurstDelay: 0.2
   dualMuzzleOffset: 0.055
   dualMuzzleAngle: 4
+  magnetDuration: 15
+  magnetForwardRange: 1
+  shieldDuration: 30
+  shieldBreakInvincibleTime: 3
+  growthDuration: 10
+  growthScale: 2

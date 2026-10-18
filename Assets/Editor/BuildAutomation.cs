@@ -79,7 +79,7 @@ namespace WoguaShooter.Editor
                 scenes = new[] { "Assets/Scenes/Game.unity" },
                 locationPathName = outputPath,
                 target = BuildTarget.Android,
-                options = BuildOptions.Development
+                options = BuildOptions.None
             };
 
             BuildReport report = BuildPipeline.BuildPlayer(options);

@@ -17,6 +17,7 @@ namespace WoguaShooter.UI
             Glide,
             UseItem,
             DiscardItem,
+            CollectCoin,
             Score,
             StompScore,
             FinalMessage
@@ -160,6 +161,7 @@ namespace WoguaShooter.UI
             player.GlideStarted += OnGlideStarted;
             inventory.SlotUsed += OnSlotUsed;
             inventory.SlotDropped += OnSlotDropped;
+            CoinCollectible.Collected += OnCoinCollected;
             Enemy.Defeated += OnEnemyDefeated;
 
             active = true;
@@ -289,8 +291,17 @@ namespace WoguaShooter.UI
                     inventory.DropInteractionEnabled = true;
                     inventory.MinimumItemCountToPreserveFromUse = 0;
                 }
-                QueueStep(Step.Score);
+                QueueStep(Step.CollectCoin);
             }
+        }
+
+        private void OnCoinCollected(CoinCollectible coin)
+        {
+            if (!acceptingAction || currentStep != Step.CollectCoin || coin == null || !coin.IsTutorialTarget)
+                return;
+
+            spawner?.ClearTutorialCoins(coin);
+            QueueStep(Step.Score);
         }
 
         private void OnEnemyDefeated(Enemy enemy, bool stomped)
@@ -412,6 +423,8 @@ namespace WoguaShooter.UI
                 spawner?.StartTutorialGhostChallenge();
             else if (step == Step.StompScore)
                 spawner?.StartTutorialSkeletonChallenge();
+            else if (step == Step.CollectCoin)
+                spawner?.StartTutorialCoinChallenge();
         }
 
         private IEnumerator ExitPrompt()
@@ -470,6 +483,9 @@ namespace WoguaShooter.UI
                 case Step.DiscardItem:
                     message = "按住另一个道具拖出槽位\n松手将它丢弃";
                     break;
+                case Step.CollectCoin:
+                    message = "拾取路径上的金币，可以获得分数";
+                    break;
                 case Step.Score:
                     message = "跳起来，让子弹命中悬浮幽灵\n击杀怪物即可得分";
                     break;
@@ -477,7 +493,7 @@ namespace WoguaShooter.UI
                     message = "从上方踩中骷髅头顶\n击杀分 + 踩踏分，奖励翻倍";
                     break;
                 default:
-                    message = "接下来请尽可能多地消灭怪物来获得更高的分数吧，\n达到1000分后可开启下一关的挑战哦";
+                    message = "在冒险过程中不断收集金币和击杀怪物可以获取更高的得分，\n从而开启后续关卡的挑战";
                     break;
             }
 
@@ -509,7 +525,8 @@ namespace WoguaShooter.UI
                 inventory.DropInteractionEnabled = false;
                 inventory.MinimumItemCountToPreserveFromUse = 1;
             }
-            else if (nextStep == Step.Score || nextStep == Step.StompScore || nextStep == Step.FinalMessage)
+            else if (nextStep == Step.CollectCoin || nextStep == Step.Score ||
+                     nextStep == Step.StompScore || nextStep == Step.FinalMessage)
             {
                 inventory.UseInteractionEnabled = true;
                 inventory.DropInteractionEnabled = true;
@@ -619,6 +636,7 @@ namespace WoguaShooter.UI
                 inventory.SlotDropped -= OnSlotDropped;
             }
             Enemy.Defeated -= OnEnemyDefeated;
+            CoinCollectible.Collected -= OnCoinCollected;
         }
 
         private float GetTravelDistance()

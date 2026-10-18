@@ -136,7 +136,12 @@ namespace WoguaShooter.Core
 
         public void Kill()
         {
-            Kill(false, transform.position);
+            Kill(false, false, transform.position);
+        }
+
+        public void KillByGrowth(Vector3 feedbackPosition)
+        {
+            Kill(false, true, feedbackPosition);
         }
 
         public void MarkTutorialTarget(bool requiresStomp)
@@ -174,7 +179,7 @@ namespace WoguaShooter.Core
                 transform.position.z);
             if (!dead)
             {
-                Kill(true, feedbackPosition);
+                Kill(true, false, feedbackPosition);
             }
             else
             {
@@ -186,7 +191,7 @@ namespace WoguaShooter.Core
             return true;
         }
 
-        private void Kill(bool stomped, Vector3 feedbackPosition)
+        private void Kill(bool stomped, bool growthSmash, Vector3 feedbackPosition)
         {
             if (dead)
                 return;
@@ -204,7 +209,9 @@ namespace WoguaShooter.Core
             float feedbackDuration = GameManager.Instance != null && GameManager.Instance.Config != null
                 ? GameManager.Instance.Config.enemyHitFlashDuration + GameManager.Instance.Config.enemyHitShakeDuration
                 : 0.2f;
-            if (stomped)
+            if (growthSmash)
+                CombatVfx.PlayGrowthSmash(feedbackPosition, feedbackDuration);
+            else if (stomped)
                 CombatVfx.PlayStomp(feedbackPosition, feedbackDuration);
             else
                 CombatVfx.PlayEnemyHit(feedbackPosition, feedbackDuration);
@@ -269,7 +276,7 @@ namespace WoguaShooter.Core
             float headHorizontalSpeed = rollDirection < 0f ? 2.6f : 0.25f;
             float headRollSpeed = 520f * (headHorizontalSpeed / 0.65f);
             Vector2 headVelocity = new Vector2(rollDirection * headHorizontalSpeed, 1.35f);
-            float groundLocalY = GetGroundY() - transform.position.y;
+            float headGroundedPivotY = GetHeadGroundedPivotLocalY();
             float elapsed = 0f;
 
             while (elapsed < duration)
@@ -304,9 +311,9 @@ namespace WoguaShooter.Core
                 {
                     headVelocity.y -= headGravity * deltaTime;
                     headPosition += new Vector3(headVelocity.x, headVelocity.y, 0f) * deltaTime;
-                    if (headPosition.y <= groundLocalY)
+                    if (headPosition.y <= headGroundedPivotY)
                     {
-                        headPosition.y = groundLocalY;
+                        headPosition.y = headGroundedPivotY;
                         headVelocity.y = 0f;
                     }
                     headRenderer.transform.localPosition = headPosition;
@@ -445,6 +452,28 @@ namespace WoguaShooter.Core
                 transform.position.z);
         }
 
+        private float GetHeadGroundedPivotLocalY()
+        {
+            float surfaceLocalY = groundSurfaceY - transform.position.y;
+            float localBottom = 0f;
+
+            if (headRenderer != null && headRenderer.sprite != null)
+            {
+                Bounds spriteBounds = headRenderer.sprite.bounds;
+                float scaledMin = spriteBounds.min.y * headRenderer.transform.localScale.y;
+                float scaledMax = spriteBounds.max.y * headRenderer.transform.localScale.y;
+                localBottom = Mathf.Min(scaledMin, scaledMax);
+            }
+
+            if (headPlatformCollider is CircleCollider2D circleCollider)
+            {
+                float colliderBottom = circleCollider.offset.y - circleCollider.radius;
+                localBottom = Mathf.Min(localBottom, colliderBottom);
+            }
+
+            return surfaceLocalY - localBottom;
+        }
+
         private float FindGroundSurfaceY()
         {
             int groundLayer = LayerMask.NameToLayer("Ground");
@@ -496,6 +525,9 @@ namespace WoguaShooter.Core
 
             Collider2D playerCollider = player.GetComponent<Collider2D>();
             if (playerCollider == null || !headRenderer.bounds.Intersects(playerCollider.bounds))
+                return;
+
+            if (player.IsBackContacting(headRenderer.bounds))
                 return;
 
             if (player.IsFootContacting(headRenderer.bounds))

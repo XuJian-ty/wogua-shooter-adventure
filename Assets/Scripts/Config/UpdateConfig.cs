@@ -5,10 +5,10 @@ namespace WoguaShooter.Config
     [CreateAssetMenu(fileName = "UpdateConfig", menuName = "Wogua Shooter/Update Config")]
     public class UpdateConfig : ScriptableObject
     {
-        [Tooltip("手机需要填写本机局域网 IP，不能使用 localhost。")]
-        public string manifestUrl = "http://192.168.110.141:8000/version.json";
+        [Tooltip("更新清单的公网 HTTPS 地址。")]
+        public string manifestUrl = "https://update.xinyin.space/version.json";
 
-        [Min(1)] public int timeoutSeconds = 1;
+        [Min(1)] public int timeoutSeconds = 5;
         public bool checkOnStart = true;
     }
 }

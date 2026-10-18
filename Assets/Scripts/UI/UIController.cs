@@ -47,6 +47,7 @@ namespace WoguaShooter.UI
         private RectTransform nextLevelUnlockPrompt;
         private CanvasGroup nextLevelUnlockGroup;
         private TutorialGradientTextEffect nextLevelUnlockTextEffect;
+        private Text nextLevelUnlockText;
 
         private void Awake()
         {
@@ -303,9 +304,17 @@ namespace WoguaShooter.UI
 
         public IEnumerator PlayNextLevelUnlockNotice()
         {
+            yield return PlayGameOverNotice("分数已达到开启下一关的条件，可继续前往挑战下一关");
+        }
+
+        public IEnumerator PlayGameOverNotice(string message)
+        {
             EnsureNextLevelUnlockNotice();
             if (nextLevelUnlockNotice == null || nextLevelUnlockPrompt == null || nextLevelUnlockGroup == null)
                 yield break;
+
+            if (nextLevelUnlockText != null)
+                nextLevelUnlockText.text = message;
 
             nextLevelUnlockNotice.transform.SetAsLastSibling();
             nextLevelUnlockNotice.SetActive(true);
@@ -402,6 +411,7 @@ namespace WoguaShooter.UI
             nextLevelUnlockPrompt.sizeDelta = new Vector2(1160f, 150f);
 
             Text text = prompt.GetComponent<Text>();
+            nextLevelUnlockText = text;
             text.text = "分数已达到开启下一关的条件，可继续前往挑战下一关";
             text.font = finalScoreText != null && finalScoreText.font != null
                 ? finalScoreText.font

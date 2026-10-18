@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace WoguaShooter.UI
@@ -33,14 +34,30 @@ namespace WoguaShooter.UI
         private int displayedLevelId = 1;
         private int pendingLevelId = 1;
         private int pendingScore;
+        private bool keyboardWindowExpanded;
 
         private void Awake()
         {
             chineseFont = Font.CreateDynamicFontFromOSFont(
                 new[] { "Microsoft YaHei UI", "Microsoft YaHei", "SimSun", "Arial" }, 30);
             BuildInterface();
+            ConfigureNameInput();
+            SetAndroidKeyboardWindow(false);
             BindEvents();
             HideAll();
+        }
+
+        private void Update()
+        {
+            if (nameInput == null)
+                return;
+
+            bool inputFocused = nameInput.isFocused;
+            if (inputFocused == keyboardWindowExpanded)
+                return;
+
+            keyboardWindowExpanded = inputFocused;
+            SetAndroidKeyboardWindow(inputFocused);
         }
 
         public void ShowLeaderboard(int levelId)
@@ -67,8 +84,8 @@ namespace WoguaShooter.UI
             celebrationScoreText.text = $"{pendingScore} 分";
             validationText.text = string.Empty;
             nameInput.SetTextWithoutNotify(string.Empty);
+            ClearNameInputFocus();
             PlayOpenAnimation(celebrationDialog, celebrationCanvasGroup);
-            StartCoroutine(FocusNameInput());
             return true;
         }
 
@@ -92,9 +109,8 @@ namespace WoguaShooter.UI
             submitButton.onClick.RemoveAllListeners();
             submitButton.onClick.AddListener(SubmitPendingScore);
             nameInput.onValueChanged.RemoveAllListeners();
-            nameInput.onValueChanged.AddListener(_ => validationText.text = string.Empty);
+            nameInput.onValueChanged.AddListener(OnNameInputChanged);
             nameInput.onSubmit.RemoveAllListeners();
-            nameInput.onSubmit.AddListener(_ => SubmitPendingScore());
         }
 
         private void ToggleLevelSelection()
@@ -151,14 +167,93 @@ namespace WoguaShooter.UI
             return $"第{Mathf.Max(1, levelId)}关";
         }
 
-        private IEnumerator FocusNameInput()
+        private void OnNameInputChanged(string ignored)
         {
-            yield return null;
-            if (nameInput != null && celebrationPanel.activeSelf)
+            validationText.text = string.Empty;
+            nameInput.ForceLabelUpdate();
+        }
+
+        private void ConfigureNameInput()
+        {
+            if (nameInput == null)
+                return;
+
+            nameInput.shouldHideMobileInput = true;
+            nameInput.characterLimit = LeaderboardService.MaximumNameLength;
+            nameInput.lineType = InputField.LineType.SingleLine;
+            nameInput.contentType = InputField.ContentType.Standard;
+            nameInput.keyboardType = TouchScreenKeyboardType.Default;
+            nameInput.customCaretColor = true;
+            nameInput.caretColor = new Color32(36, 92, 61, 255);
+            nameInput.caretBlinkRate = 0.65f;
+            nameInput.caretWidth = 2;
+        }
+
+        private void ClearNameInputFocus()
+        {
+            if (nameInput == null)
+                return;
+
+            nameInput.DeactivateInputField();
+            if (EventSystem.current != null &&
+                EventSystem.current.currentSelectedGameObject == nameInput.gameObject)
             {
-                nameInput.Select();
-                nameInput.ActivateInputField();
+                EventSystem.current.SetSelectedGameObject(null);
             }
+        }
+
+        private static void SetAndroidKeyboardWindow(bool keyboardVisible)
+        {
+#if UNITY_ANDROID && !UNITY_EDITOR
+            try
+            {
+                using AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+                using AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+                using AndroidJavaClass keyboardBridge = new AndroidJavaClass("com.wogua.shooter.WoguaShooterKeyboardBridge");
+                keyboardBridge.CallStatic("configure", keyboardVisible);
+                activity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
+                {
+                    using AndroidJavaClass callbackUnityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+                    using AndroidJavaObject callbackActivity = callbackUnityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+                    using AndroidJavaObject window = callbackActivity.Call<AndroidJavaObject>("getWindow");
+                    using AndroidJavaObject decorView = window.Call<AndroidJavaObject>("getDecorView");
+                    const int softInputStateAlwaysHidden = 3;
+                    const int softInputAdjustResize = 16;
+                    const int flagFullscreen = 1024;
+                    const int flagForceNotFullscreen = 2048;
+                    const int systemUiFlagFullscreen = 4;
+                    const int systemUiFlagImmersiveSticky = 4096;
+                    const int systemUiFlagHideNavigation = 2;
+                    const int systemUiFlagLayoutStable = 256;
+                    const int systemUiFlagLayoutHideNavigation = 512;
+                    const int systemUiFlagLayoutFullscreen = 1024;
+
+                    window.Call("setSoftInputMode", softInputStateAlwaysHidden | softInputAdjustResize);
+                    if (keyboardVisible)
+                    {
+                        window.Call("clearFlags", flagFullscreen);
+                        window.Call("addFlags", flagForceNotFullscreen);
+                        decorView.Call("setSystemUiVisibility", 0);
+                    }
+                    else
+                    {
+                        window.Call("clearFlags", flagForceNotFullscreen);
+                        window.Call("addFlags", flagFullscreen);
+                        decorView.Call("setSystemUiVisibility",
+                            systemUiFlagFullscreen |
+                            systemUiFlagImmersiveSticky |
+                            systemUiFlagHideNavigation |
+                            systemUiFlagLayoutStable |
+                            systemUiFlagLayoutHideNavigation |
+                            systemUiFlagLayoutFullscreen);
+                    }
+                }));
+            }
+            catch (System.Exception exception)
+            {
+                Debug.LogWarning("无法配置 Android 输入法窗口：" + exception.Message);
+            }
+#endif
         }
 
         private void PlayOpenAnimation(RectTransform dialog, CanvasGroup canvasGroup)
@@ -437,7 +532,11 @@ namespace WoguaShooter.UI
             input.characterLimit = LeaderboardService.MaximumNameLength;
             input.lineType = InputField.LineType.SingleLine;
             input.contentType = InputField.ContentType.Standard;
+            input.shouldHideMobileInput = true;
+            input.customCaretColor = true;
             input.caretColor = new Color32(36, 92, 61, 255);
+            input.caretBlinkRate = 0.65f;
+            input.caretWidth = 2;
             input.selectionColor = new Color32(106, 168, 119, 120);
             return input;
         }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using WoguaShooter.Config;
+using WoguaShooter.Core;
 using UnityAddressables = UnityEngine.AddressableAssets.Addressables;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -63,6 +64,11 @@ namespace WoguaShooter.UI
                 case SpellType.DualMuzzle:
                     DrawDualMuzzle(texture);
                     break;
+                case SpellType.Magnet:
+                case SpellType.Shield:
+                case SpellType.Growth:
+                    DrawFallback(texture);
+                    break;
                 default:
                     DrawFallback(texture);
                     break;
@@ -90,6 +96,10 @@ namespace WoguaShooter.UI
                 }
             }
 #endif
+
+            string resourceName = GetResourceName(type);
+            if (!string.IsNullOrEmpty(resourceName))
+                return GameplaySpriteLibrary.Get(resourceName);
 
             string address = GetAddress(type);
             if (string.IsNullOrEmpty(address))
@@ -126,6 +136,20 @@ namespace WoguaShooter.UI
                 case SpellType.TripleShot: return "Assets/Art/ui/spells/icon_triple_shot.png";
                 case SpellType.Repeater: return "Assets/Art/ui/spells/icon_repeater.png";
                 case SpellType.DualMuzzle: return "Assets/Art/ui/spells/icon_dual_muzzle.png";
+                case SpellType.Magnet: return "Assets/Resources/Gameplay/icon_magnet.png";
+                case SpellType.Shield: return "Assets/Resources/Gameplay/icon_shield.png";
+                case SpellType.Growth: return "Assets/Resources/Gameplay/icon_growth.png";
+                default: return null;
+            }
+        }
+
+        private static string GetResourceName(SpellType type)
+        {
+            switch (type)
+            {
+                case SpellType.Magnet: return "icon_magnet";
+                case SpellType.Shield: return "icon_shield";
+                case SpellType.Growth: return "icon_growth";
                 default: return null;
             }
         }

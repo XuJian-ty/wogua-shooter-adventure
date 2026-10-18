@@ -33,6 +33,7 @@ namespace WoguaShooter.Core
 
         private bool restarting;
         private bool tutorialActive;
+        private Coroutine gameOverSequence;
         private static bool physicsTransformsDirty;
         private static readonly HashSet<GameObject> levelObjects = new HashSet<GameObject>();
 
@@ -140,6 +141,7 @@ namespace WoguaShooter.Core
 
         public void ResetForNewGame()
         {
+            CancelGameOverSequence();
             tutorialActive = false;
             Score = 0;
             ElapsedTime = 0f;
@@ -159,6 +161,7 @@ namespace WoguaShooter.Core
 
         public void EnterMenuState()
         {
+            CancelGameOverSequence();
             State = GameState.Menu;
             Time.timeScale = 1f;
             uiController?.ShowMenu();
@@ -179,6 +182,9 @@ namespace WoguaShooter.Core
             if (State != GameState.Playing)
                 return;
 
+            if (player != null && player.TryPreventFatalDamage())
+                return;
+
             State = GameState.GameOver;
             Time.timeScale = 0f;
             uiController?.PrepareGameOver();
@@ -188,7 +194,7 @@ namespace WoguaShooter.Core
             int levelId = flow != null ? flow.CurrentLevelId : 1;
             LeaderboardService.RecordHighestScore(levelId, Score);
             leaderboard?.HideAll();
-            StartCoroutine(ShowGameOverSequence(levelId, Score, leaderboard));
+            gameOverSequence = StartCoroutine(ShowGameOverSequence(levelId, Score, leaderboard));
         }
 
         private IEnumerator ShowGameOverSequence(
@@ -198,11 +204,27 @@ namespace WoguaShooter.Core
         {
             bool unlockedNextLevel = levelId == 1 &&
                 finalScore >= LeaderboardService.ScoreToUnlockNextLevel;
-            if (unlockedNextLevel && uiController != null)
-                yield return uiController.PlayNextLevelUnlockNotice();
+            if (uiController != null)
+            {
+                string message = unlockedNextLevel
+                    ? "分数已达到开启下一关的条件，可继续前往挑战下一关"
+                    : "角色死亡，再接再厉";
+                yield return uiController.PlayGameOverNotice(message);
+            }
 
             if (leaderboard == null || !leaderboard.TryShowScoreEntry(levelId, finalScore))
                 uiController?.ShowGameOver(finalScore);
+
+            gameOverSequence = null;
+        }
+
+        private void CancelGameOverSequence()
+        {
+            if (gameOverSequence == null)
+                return;
+
+            StopCoroutine(gameOverSequence);
+            gameOverSequence = null;
         }
 
         public void RestartGame()

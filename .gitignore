@@ -10,8 +10,10 @@
 [Tt]est[Rr]esults/
 [Oo]utput/
 [Tt]mp/
+.utmp/
 [Ss]erver/Logs/
 Server/.server.pid
+Server/.tunnel.pid
 compile-choice.log
 
 # Unity and IDE generated files

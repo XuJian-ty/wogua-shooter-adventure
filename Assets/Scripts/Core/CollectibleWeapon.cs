@@ -27,11 +27,6 @@ namespace WoguaShooter.Core
         [SerializeField, Min(0f)] private float pickupAttractRotationSpeed = 360f;
         [SerializeField] private AnimationCurve pickupAttractEase = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
-        [Header("满槽等待")]
-        [Tooltip("背包没有空槽时，道具在玩家身边停留的最长时间。")]
-        [SerializeField, Min(1f)] private float pendingLifetime = 5f;
-        [SerializeField, Min(0.1f)] private float pendingFollowSmoothTime = 0.18f;
-
         private Vector3 startPosition;
         private Vector3 baseScale;
         private Vector3 attractVelocity;
@@ -40,18 +35,12 @@ namespace WoguaShooter.Core
         private float findTargetTimer;
         private bool isAttracting;
         private bool collected;
-        private bool waitingForSlot;
-        private float pendingTime;
-        private Vector3 pendingOffset;
-        private SpellInventory pendingInventory;
-        private Collider2D pickupCollider;
 
         private void Awake()
         {
             GameManager.RegisterLevelObject(gameObject);
             startPosition = transform.position;
             baseScale = transform.localScale;
-            pickupCollider = GetComponent<Collider2D>();
             targetWeapon = FindFirstObjectByType<WeaponController>();
             if (itemRenderer == null)
             {
@@ -65,12 +54,6 @@ namespace WoguaShooter.Core
         {
             if (collected)
                 return;
-
-            if (waitingForSlot)
-            {
-                UpdatePendingPickup();
-                return;
-            }
 
             if (targetWeapon == null)
             {
@@ -86,7 +69,9 @@ namespace WoguaShooter.Core
             if (!isAttracting && targetWeapon != null)
             {
                 float distance = Vector2.Distance(transform.position, targetWeapon.transform.position);
-                if (distance <= pickupAttractRadius)
+                PlayerController player = targetWeapon.GetComponent<PlayerController>();
+                bool magnetAttracts = player != null && player.CanMagnetAttract(transform.position);
+                if (distance <= pickupAttractRadius || magnetAttracts)
                     isAttracting = true;
             }
 
@@ -162,110 +147,38 @@ namespace WoguaShooter.Core
 
         private void Collect(WeaponController weapon)
         {
-            if (collected || waitingForSlot || weapon == null)
+            if (collected || weapon == null)
                 return;
 
             SpellInventory inventory = SpellInventory.GetOrCreate(weapon);
             if (inventory == null)
                 return;
 
-            SpellInventory.AddResult result = inventory.TryAddDetailed(ResolveSpellType());
-            if (result == SpellInventory.AddResult.Added || result == SpellInventory.AddResult.StackFull)
+            SpellType type = ResolveSpellType();
+            SpellInventory.AddResult result = inventory.TryAddDetailed(type);
+            if (result == SpellInventory.AddResult.Added)
             {
                 FinishCollection();
                 return;
             }
 
-            if (result == SpellInventory.AddResult.NoEmptySlot)
-                BeginPendingPickup(weapon, inventory);
-        }
-
-        private void BeginPendingPickup(WeaponController weapon, SpellInventory inventory)
-        {
-            waitingForSlot = true;
-            isAttracting = false;
-            targetWeapon = weapon;
-            pendingInventory = inventory;
-            pendingInventory.RegisterPendingPickup(this);
-            pendingTime = 0f;
-            attractVelocity = Vector3.zero;
-            float side = (GetInstanceID() & 1) == 0 ? -1f : 1f;
-            float verticalOffset = 0.22f + Mathf.Abs(GetInstanceID() % 3) * 0.16f;
-            pendingOffset = new Vector3(side * 0.72f, verticalOffset, 0f);
-            if (pickupCollider != null)
-                pickupCollider.enabled = false;
-        }
-
-        private void UpdatePendingPickup()
-        {
-            if (targetWeapon == null || pendingInventory == null)
+            if (result == SpellInventory.AddResult.StackFull ||
+                result == SpellInventory.AddResult.NoEmptySlot)
             {
-                CancelPendingPickup();
-                return;
-            }
-
-            SpellInventory.AddResult result = pendingInventory.TryAddDetailed(ResolveSpellType());
-            if (result == SpellInventory.AddResult.Added || result == SpellInventory.AddResult.StackFull)
-            {
+                inventory.TryUseCollectedSpell(type);
                 FinishCollection();
-                return;
             }
-
-            pendingTime += Time.deltaTime;
-            if (pendingTime >= pendingLifetime)
-            {
-                CancelPendingPickup();
-                return;
-            }
-
-            Vector3 targetPosition = targetWeapon.transform.position + pendingOffset;
-            transform.position = Vector3.SmoothDamp(
-                transform.position,
-                targetPosition,
-                ref attractVelocity,
-                pendingFollowSmoothTime,
-                Mathf.Infinity,
-                Time.deltaTime);
-            transform.Rotate(Vector3.forward, pickupAttractRotationSpeed * 0.35f * Time.deltaTime);
-            transform.localScale = baseScale * pickupAttractScale;
-
-            GameManager.RequestPhysicsTransformSync();
         }
 
         private void FinishCollection()
         {
             collected = true;
-            waitingForSlot = false;
-            if (pendingInventory != null)
-            {
-                SpellInventory inventory = pendingInventory;
-                pendingInventory = null;
-                inventory.ClearPendingPickup(this);
-            }
-            Destroy(gameObject);
-        }
-
-        internal void CancelPendingPickup()
-        {
-            if (collected)
-                return;
-
-            collected = true;
-            waitingForSlot = false;
-            if (pendingInventory != null)
-            {
-                SpellInventory inventory = pendingInventory;
-                pendingInventory = null;
-                inventory.ClearPendingPickup(this);
-            }
             Destroy(gameObject);
         }
 
         private void OnDestroy()
         {
             GameManager.UnregisterLevelObject(gameObject);
-            if (pendingInventory != null)
-                pendingInventory.ClearPendingPickup(this);
         }
 
         public void SetSpellType(SpellType type)

@@ -18,7 +18,10 @@ namespace WoguaShooter.Config
         WaveFlight,
         TripleShot,
         Repeater,
-        DualMuzzle
+        DualMuzzle,
+        Magnet,
+        Shield,
+        Growth
     }
 
     [Serializable]
@@ -118,6 +121,15 @@ namespace WoguaShooter.Config
         [Min(0.01f)] public float machineGunBurstDelay = 0.2f;
         [Min(0f)] public float dualMuzzleOffset = 0.055f;
         [Min(0f)] public float dualMuzzleAngle = 4f;
+
+        [Header("增益道具")]
+        [Min(0.5f)] public float magnetDuration = 15f;
+        [Tooltip("磁铁只会吸附已进入玩家前方该距离的金币和道具。")]
+        [Min(0.1f)] public float magnetForwardRange = 1f;
+        [Min(0.5f)] public float shieldDuration = 30f;
+        [Min(0.1f)] public float shieldBreakInvincibleTime = 3f;
+        [Min(0.5f)] public float growthDuration = 10f;
+        [Min(1f)] public float growthScale = 2f;
 
         public float EvaluateBackgroundSpeed(float elapsedTime)
         {

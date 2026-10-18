@@ -1,5 +1,6 @@
 param(
-    [int]$Port = 8000
+    [int]$Port = 8000,
+    [string]$BindAddress = "127.0.0.1"
 )
 
 $ErrorActionPreference = "Stop"
@@ -22,7 +23,7 @@ if (-not (Test-Path -LiteralPath $pythonPath)) {
 
 $serverProcess = Start-Process `
     -FilePath $pythonPath `
-    -ArgumentList @("-m", "http.server", $Port, "--bind", "0.0.0.0") `
+    -ArgumentList @("-m", "http.server", $Port, "--bind", $BindAddress) `
     -WorkingDirectory $serverDirectory `
     -WindowStyle Hidden `
     -PassThru
@@ -43,6 +44,6 @@ $lanAddress = if ($null -ne $defaultRoute) {
 
 Write-Host "Update server started. PID: $($serverProcess.Id)"
 Write-Host "This PC: http://127.0.0.1:$Port/version.json"
-if ($lanAddress) {
+if ($BindAddress -ne "127.0.0.1" -and $lanAddress) {
     Write-Host "LAN:     http://${lanAddress}:$Port/version.json"
 }

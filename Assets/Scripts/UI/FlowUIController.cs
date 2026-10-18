@@ -305,11 +305,7 @@ namespace WoguaShooter.UI
 
             Text description = card.Find("Description")?.GetComponent<Text>();
             if (description != null)
-            {
-                description.text = unlocked
-                    ? "重返暮色荒原，迎战更快攻势"
-                    : $"第1关最高分达到{LeaderboardService.ScoreToUnlockNextLevel}分后解锁";
-            }
+                description.text = "穿越风蚀荒原，击退沿途怪物";
 
             Text status = card.Find("Status")?.GetComponent<Text>();
             if (status != null)
@@ -321,6 +317,14 @@ namespace WoguaShooter.UI
             }
 
             ConfigureLevelNumberPlate(card, 2, unlocked);
+
+            Transform levelThreeCard = levelPanel != null
+                ? levelPanel.transform.Find("LevelList/Viewport/Content/LevelThreeLocked")
+                : null;
+            SetLevelCardText(
+                levelThreeCard,
+                "第3关  月夜墓园",
+                "穿越幽暗墓园，击退沿途怪物");
         }
 
         private void ConfigureLevelNumberPlate(Transform card, int levelNumber, bool unlocked)
@@ -511,13 +515,16 @@ namespace WoguaShooter.UI
         {
             transitioning = true;
             tutorialGuide?.StopTutorial();
+            FindFirstObjectByType<LeaderboardUIController>(FindObjectsInactive.Include)?.HideAll();
             SetHudButtons(false, false);
+            manager?.EnterMenuState();
+            SetGameplayActive(false);
+            ClearLevelObjects();
             Time.timeScale = 0f;
             int levelId = CurrentLevelId;
 
             void RestartAction()
             {
-                ClearLevelObjects();
                 ActivateLevel(levelId);
             }
 

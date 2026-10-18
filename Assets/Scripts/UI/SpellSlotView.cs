@@ -169,6 +169,9 @@ namespace WoguaShooter.UI
                 case SpellType.TripleShot: return "三向齐发";
                 case SpellType.Repeater: return "双弹连发";
                 case SpellType.DualMuzzle: return "双枪联动";
+                case SpellType.Magnet: return "磁铁";
+                case SpellType.Shield: return "护盾";
+                case SpellType.Growth: return "变大";
                 default: return "空槽";
             }
         }

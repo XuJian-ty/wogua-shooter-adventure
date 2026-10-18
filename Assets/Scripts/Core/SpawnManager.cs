@@ -21,16 +21,76 @@ namespace WoguaShooter.Core
         [SerializeField] private float weaponSpawnChance = 0.13f;
         [SerializeField, Min(1f)] private float tutorialGhostInterval = 3.6f;
         [SerializeField, Min(1f)] private float tutorialSkeletonInterval = 4.2f;
+        [Header("金币与地形")]
+        [SerializeField] private Vector2 coinSpawnIntervalRange = new Vector2(2.6f, 4.4f);
+        [SerializeField] private Vector2 hazardSpawnIntervalRange = new Vector2(7f, 11f);
+        [SerializeField, Range(0f, 1f)] private float enemyCoinTrailChance = 0.68f;
+        [Header("后期导弹")]
+        [SerializeField, Min(0f)] private float missileStartTime = 55f;
+        [SerializeField] private Vector2 missileSpawnIntervalRange = new Vector2(11f, 17f);
 
         private Coroutine loop;
         private Coroutine tutorialLoop;
         private TutorialChallenge tutorialChallenge;
         private readonly List<Enemy> tutorialEnemies = new List<Enemy>();
+        private readonly List<CoinCollectible> tutorialCoins = new List<CoinCollectible>();
         private bool tutorialMode;
 
         private void Start()
         {
             loop = StartCoroutine(SpawnLoop());
+            StartCoroutine(CoinSpawnLoop());
+            StartCoroutine(HazardSpawnLoop());
+            StartCoroutine(MissileSpawnLoop());
+        }
+
+        private IEnumerator CoinSpawnLoop()
+        {
+            yield return WaitForPlaying();
+            while (true)
+            {
+                yield return new WaitForSeconds(RandomInterval(coinSpawnIntervalRange, 2.6f, 4.4f));
+                if (CanSpawnNormalGameplay())
+                    SpawnCoinPattern();
+            }
+        }
+
+        private IEnumerator HazardSpawnLoop()
+        {
+            yield return WaitForPlaying();
+            yield return new WaitForSeconds(6f);
+            while (true)
+            {
+                yield return new WaitForSeconds(RandomInterval(hazardSpawnIntervalRange, 7f, 11f));
+                if (CanSpawnNormalGameplay())
+                    SpawnTerrainHazard();
+            }
+        }
+
+        private IEnumerator MissileSpawnLoop()
+        {
+            yield return WaitForPlaying();
+            while (true)
+            {
+                yield return new WaitForSeconds(2f);
+                GameManager manager = GameManager.Instance;
+                if (!CanSpawnNormalGameplay() || manager == null || manager.ElapsedTime < Mathf.Max(20f, missileStartTime))
+                    continue;
+
+                SpawnMissile();
+                yield return new WaitForSeconds(RandomInterval(missileSpawnIntervalRange, 11f, 17f));
+            }
+        }
+
+        private static IEnumerator WaitForPlaying()
+        {
+            while (GameManager.Instance == null || GameManager.Instance.State != GameState.Playing)
+                yield return null;
+        }
+
+        private bool CanSpawnNormalGameplay()
+        {
+            return !tutorialMode && GameManager.Instance != null && GameManager.Instance.State == GameState.Playing;
         }
 
         private IEnumerator SpawnLoop()
@@ -66,6 +126,29 @@ namespace WoguaShooter.Core
             StartTutorialChallenge(TutorialChallenge.Ghost);
         }
 
+        public void StartTutorialCoinChallenge()
+        {
+            if (!tutorialMode)
+                return;
+
+            ClearTutorialCoins();
+            GameConfig config = GameManager.Instance != null ? GameManager.Instance.Config : null;
+            if (config == null)
+                return;
+
+            float ground = GetGroundSurfaceY(config);
+            float startX = config.enemySpawnX - 1.4f;
+            const int coinCount = 6;
+            for (int i = 0; i < coinCount; i++)
+            {
+                float progress = i / (coinCount - 1f);
+                float y = ground + 0.38f + Mathf.Sin(progress * Mathf.PI) * 0.42f;
+                CoinCollectible coin = CoinCollectible.Create(new Vector3(startX + i * 0.4f, y, 0f));
+                coin.MarkTutorialTarget();
+                tutorialCoins.Add(coin);
+            }
+        }
+
         public void StartTutorialSkeletonChallenge()
         {
             StartTutorialChallenge(TutorialChallenge.SkeletonPair);
@@ -75,11 +158,26 @@ namespace WoguaShooter.Core
         {
             tutorialMode = false;
             StopTutorialChallenge();
+            ClearTutorialCoins();
         }
 
         public void ClearTutorialChallenge(Enemy completedTarget = null)
         {
             StopTutorialChallenge(completedTarget);
+        }
+
+        public void ClearTutorialCoins(CoinCollectible completedTarget = null)
+        {
+            for (int i = 0; i < tutorialCoins.Count; i++)
+            {
+                CoinCollectible coin = tutorialCoins[i];
+                if (coin == null || coin == completedTarget)
+                    continue;
+
+                coin.gameObject.SetActive(false);
+                Destroy(coin.gameObject);
+            }
+            tutorialCoins.Clear();
         }
 
         private void StartTutorialChallenge(TutorialChallenge challenge)
@@ -200,6 +298,8 @@ namespace WoguaShooter.Core
             if (config == null)
                 return;
             int count = Random.value > 0.78f ? 2 : 1;
+            if (Random.value < enemyCoinTrailChance)
+                SpawnCoinsBeforeEnemy(config.enemySpawnX, config);
             for (int i = 0; i < count; i++)
             {
                 Enemy prefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
@@ -235,20 +335,138 @@ namespace WoguaShooter.Core
 
         private SpellType GetRandomSpellType()
         {
-            // Early runs stay readable; the more combinatorial modifiers appear
-            // often enough to encourage experimentation without flooding slots.
             float roll = Random.value;
-            if (roll < 0.2f)
+            if (roll < 0.13f)
                 return SpellType.MachineGun;
-            if (roll < 0.38f)
+            if (roll < 0.25f)
                 return SpellType.CornCannon;
-            if (roll < 0.58f)
+            if (roll < 0.39f)
                 return SpellType.TripleShot;
-            if (roll < 0.75f)
+            if (roll < 0.52f)
                 return SpellType.Repeater;
-            if (roll < 0.9f)
+            if (roll < 0.64f)
                 return SpellType.DualMuzzle;
-            return SpellType.WaveFlight;
+            if (roll < 0.74f)
+                return SpellType.WaveFlight;
+            if (roll < 0.84f)
+                return SpellType.Magnet;
+            if (roll < 0.92f)
+                return SpellType.Shield;
+            return SpellType.Growth;
+        }
+
+        private void SpawnCoinPattern()
+        {
+            GameConfig config = GameManager.Instance != null ? GameManager.Instance.Config : null;
+            if (config == null)
+                return;
+
+            float startX = config.enemySpawnX + Random.Range(-0.25f, 0.65f);
+            float ground = GetGroundSurfaceY(config);
+            int pattern = Random.Range(0, 4);
+            if (pattern == 0)
+            {
+                for (int i = 0; i < 6; i++)
+                    SpawnCoin(startX + i * 0.34f, ground + 0.34f);
+            }
+            else if (pattern == 1)
+            {
+                for (int i = 0; i < 7; i++)
+                {
+                    float progress = i / 6f;
+                    float y = ground + 0.35f + Mathf.Sin(progress * Mathf.PI) * 1.05f;
+                    SpawnCoin(startX + i * 0.34f, y);
+                }
+            }
+            else if (pattern == 2)
+            {
+                bool ascending = Random.value > 0.5f;
+                for (int i = 0; i < 6; i++)
+                {
+                    int step = ascending ? i : 5 - i;
+                    SpawnCoin(startX + i * 0.34f, ground + 0.34f + step * 0.2f);
+                }
+            }
+            else
+            {
+                Vector2[] diamond =
+                {
+                    new Vector2(0f, 0.75f), new Vector2(0.35f, 1.08f),
+                    new Vector2(0.7f, 1.38f), new Vector2(1.05f, 1.08f),
+                    new Vector2(1.4f, 0.75f), new Vector2(1.05f, 0.44f),
+                    new Vector2(0.7f, 0.18f), new Vector2(0.35f, 0.44f)
+                };
+                for (int i = 0; i < diamond.Length; i++)
+                    SpawnCoin(startX + diamond[i].x, ground + diamond[i].y);
+            }
+        }
+
+        private static void SpawnCoinsBeforeEnemy(float enemyX, GameConfig config)
+        {
+            float ground = GetGroundSurfaceY(config);
+            float startX = enemyX - 1.65f;
+            for (int i = 0; i < 4; i++)
+                SpawnCoin(startX + i * 0.31f, ground + 0.34f + Mathf.Sin(i / 3f * Mathf.PI) * 0.22f);
+        }
+
+        private void SpawnTerrainHazard()
+        {
+            GameConfig config = GameManager.Instance != null ? GameManager.Instance.Config : null;
+            if (config == null)
+                return;
+
+            float ground = GetGroundSurfaceY(config);
+            WorldHazardType type = Random.value < 0.58f ? WorldHazardType.Spikes : WorldHazardType.FirePit;
+            WorldHazard.Create(type, new Vector3(config.enemySpawnX + Random.Range(0f, 0.8f), ground, 0f));
+        }
+
+        private void SpawnMissile()
+        {
+            GameConfig config = GameManager.Instance != null ? GameManager.Instance.Config : null;
+            if (config == null)
+                return;
+
+            float ground = GetGroundSurfaceY(config);
+            float y = Random.Range(ground + 0.45f, ground + 2.35f);
+            WorldHazard.Create(WorldHazardType.Missile,
+                new Vector3(config.enemySpawnX + Random.Range(0.6f, 1.5f), y, 0f));
+        }
+
+        private static void SpawnCoin(float x, float y)
+        {
+            CoinCollectible.Create(new Vector3(x, y, 0f));
+        }
+
+        private static float GetGroundSurfaceY(GameConfig config)
+        {
+            int groundLayer = LayerMask.NameToLayer("Ground");
+            if (groundLayer >= 0)
+            {
+                RaycastHit2D hit = Physics2D.Raycast(
+                    new Vector2(config.enemySpawnX, 20f),
+                    Vector2.down,
+                    40f,
+                    1 << groundLayer);
+                if (hit.collider != null && !hit.collider.isTrigger)
+                    return hit.collider.bounds.max.y;
+            }
+
+            Collider2D[] colliders = FindObjectsByType<Collider2D>(FindObjectsSortMode.None);
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                Collider2D collider = colliders[i];
+                if (collider != null && !collider.isTrigger && collider.gameObject.name == "GroundCollider")
+                    return collider.bounds.max.y;
+            }
+
+            return config.groundY;
+        }
+
+        private static float RandomInterval(Vector2 configuredRange, float fallbackMin, float fallbackMax)
+        {
+            float minimum = configuredRange.x > 0f ? configuredRange.x : fallbackMin;
+            float maximum = configuredRange.y >= minimum ? configuredRange.y : fallbackMax;
+            return Random.Range(minimum, Mathf.Max(minimum, maximum));
         }
     }
 }

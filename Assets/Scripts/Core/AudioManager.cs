@@ -21,6 +21,7 @@ namespace WoguaShooter.Core
         [SerializeField] private AudioClip cornShotSfx;
         [SerializeField] private AudioClip enemyHitSfx;
         [SerializeField] private AudioClip cornExplosionSfx;
+        [SerializeField] private AudioClip coinCollectSfx;
 
         [Header("音量")]
         [SerializeField, Range(0f, 1f)] private float musicVolume = 0.7f;
@@ -71,6 +72,10 @@ namespace WoguaShooter.Core
                 enemyHitSfx = Resources.Load<AudioClip>("Audio/SFX_EnemyHit");
             if (cornExplosionSfx == null)
                 cornExplosionSfx = Resources.Load<AudioClip>("Audio/SFX_CornExplosion");
+            if (coinCollectSfx == null)
+                coinCollectSfx = Resources.Load<AudioClip>("Audio/SFX_CoinCollect");
+            if (coinCollectSfx == null)
+                coinCollectSfx = CreateCoinCollectClip();
         }
 
         private void EnsureAudioSources()
@@ -168,6 +173,34 @@ namespace WoguaShooter.Core
         public void PlayCornExplosion()
         {
             PlaySfx(cornExplosionSfx, 0.9f);
+        }
+
+        public void PlayCoinCollect()
+        {
+            PlaySfx(coinCollectSfx, 0.86f);
+        }
+
+        private static AudioClip CreateCoinCollectClip()
+        {
+            const int sampleRate = 44100;
+            const float duration = 0.18f;
+            int sampleCount = Mathf.CeilToInt(sampleRate * duration);
+            float[] samples = new float[sampleCount];
+            for (int i = 0; i < sampleCount; i++)
+            {
+                float time = i / (float)sampleRate;
+                float progress = time / duration;
+                float attack = Mathf.Clamp01(time / 0.008f);
+                float envelope = attack * Mathf.Pow(1f - progress, 2.2f);
+                float frequency = progress < 0.48f ? 988f : 1319f;
+                float fundamental = Mathf.Sin(time * frequency * Mathf.PI * 2f);
+                float sparkle = Mathf.Sin(time * frequency * 2f * Mathf.PI * 2f) * 0.24f;
+                samples[i] = (fundamental + sparkle) * envelope * 0.42f;
+            }
+
+            AudioClip clip = AudioClip.Create("RuntimeCoinCollect", sampleCount, 1, sampleRate, false);
+            clip.SetData(samples, 0);
+            return clip;
         }
     }
 }

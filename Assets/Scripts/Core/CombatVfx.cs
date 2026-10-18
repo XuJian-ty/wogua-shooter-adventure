@@ -28,6 +28,15 @@ namespace WoguaShooter.Core
             CreateRing(position, 0.34f, life);
         }
 
+        public static void PlayGrowthSmash(Vector3 position, float duration = 0.26f)
+        {
+            float life = Mathf.Max(0.2f, duration);
+            CreateBurst(position, new Color(0.52f, 1f, 0.24f, 1f), 20, 3.2f, life);
+            CreateBurst(position, new Color(1f, 0.92f, 0.28f, 1f), 12, 2.2f, life * 0.85f);
+            CreateFlash(position, new Color(0.86f, 1f, 0.54f, 0.95f), 0.46f, life * 0.7f);
+            CreateRing(position, 0.48f, life);
+        }
+
         public static void PlayCornExplosion(
             Vector3 position,
             float radius,

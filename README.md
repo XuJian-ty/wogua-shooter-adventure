@@ -40,13 +40,13 @@ python Tools/GenerateAudioAssets.py
 
 ## 更新配置
 
-更新配置位于 `Assets/Configs/UpdateConfig.asset`。`Manifest Url` 要填写服务器电脑的局域网地址，例如：
+更新配置位于 `Assets/Configs/UpdateConfig.asset`。正式包使用固定公网 HTTPS 地址：
 
 ```text
-http://192.168.110.141:8000/version.json
+https://update.xinyin.space/version.json
 ```
 
-电脑的局域网 IP 变化后，需要修改这里并重新构建游戏。
+公网入口由 Cloudflare Tunnel 转发到本机 `127.0.0.1:8000`，局域网 IP 变化不会影响客户端。
 
 ## 地图与碰撞体编辑
 
@@ -67,20 +67,20 @@ http://192.168.110.141:8000/version.json
 
 ## 本机更新服务器
 
-项目使用电脑现有的 Python 3，不需要安装额外服务器软件。在 PowerShell 中运行：
+项目使用 Python 3 提供本地文件，并通过 Cloudflare Tunnel 提供公网 HTTPS。在 PowerShell 中运行：
 
 ```powershell
-cd "D:\Users\unity\倭瓜射手大冒险"
-powershell -ExecutionPolicy Bypass -File .\Tools\StartUpdateServer.ps1
+cd "D:\Users\unity\WoguaShooterAdventure"
+powershell -ExecutionPolicy Bypass -File .\Tools\StartPublicUpdateServer.ps1
 ```
 
 停止服务器：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\Tools\StopUpdateServer.ps1
+powershell -ExecutionPolicy Bypass -File .\Tools\StopPublicUpdateServer.ps1
 ```
 
-同一局域网中的其他设备需要能访问脚本输出的 `LAN` 地址。若访问失败，请允许 Python 通过 Windows 防火墙的专用网络。
+公网地址为 `https://update.xinyin.space/version.json`。电脑关闭、断网或脚本未运行时，游戏会跳过更新检查并继续离线运行。
 
 ## 发布 Lua 热更新
 

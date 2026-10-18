@@ -23,7 +23,7 @@ namespace WoguaShooter.UI
     {
         public const int MaximumEntries = 5;
         public const int MaximumNameLength = 6;
-        public const int ScoreToUnlockNextLevel = 1000;
+        public const int ScoreToUnlockNextLevel = 10000;
 
         private const string SaveFileName = "game_data.json";
         private const string LegacySaveKey = "WoguaShooter.Leaderboards.V1";

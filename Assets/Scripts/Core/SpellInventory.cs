@@ -45,7 +45,6 @@ namespace WoguaShooter.Core
         private readonly Slot[] slots = new Slot[SlotCount];
         private WeaponController weaponController;
         private PlayerController playerController;
-        private CollectibleWeapon pendingPickup;
 
         public static SpellInventory GetOrCreate(WeaponController weapon)
         {
@@ -68,6 +67,16 @@ namespace WoguaShooter.Core
         public bool TryAdd(SpellType type)
         {
             return TryAddDetailed(type) == AddResult.Added;
+        }
+
+        public bool TryUseCollectedSpell(SpellType type)
+        {
+            if (type == SpellType.None ||
+                GameManager.Instance == null ||
+                GameManager.Instance.State != GameState.Playing)
+                return false;
+
+            return Apply(type);
         }
 
         public AddResult TryAddDetailed(SpellType type)
@@ -144,8 +153,6 @@ namespace WoguaShooter.Core
             UseInteractionEnabled = true;
             DropInteractionEnabled = true;
             MinimumItemCountToPreserveFromUse = 0;
-            if (pendingPickup != null)
-                pendingPickup.CancelPendingPickup();
 
             for (int i = 0; i < slots.Length; i++)
                 slots[i] = default;
@@ -155,25 +162,8 @@ namespace WoguaShooter.Core
             Changed?.Invoke();
         }
 
-        internal void RegisterPendingPickup(CollectibleWeapon pickup)
-        {
-            if (pickup == null || pendingPickup == pickup)
-                return;
-
-            if (pendingPickup != null)
-                pendingPickup.CancelPendingPickup();
-
-            pendingPickup = pickup;
-        }
-
-        internal void ClearPendingPickup(CollectibleWeapon pickup)
-        {
-            if (pendingPickup == pickup)
-                pendingPickup = null;
-        }
-
         /// <summary>
-        /// 为新的一局随机准备五种不同的道具，每种各占一个槽位。
+        /// 为新的一局随机准备五种不同的道具，每种填满一个槽位。
         /// </summary>
         public void FillRandomDistinct()
         {
@@ -184,17 +174,20 @@ namespace WoguaShooter.Core
                 SpellType.WaveFlight,
                 SpellType.TripleShot,
                 SpellType.Repeater,
-                SpellType.DualMuzzle
+                SpellType.DualMuzzle,
+                SpellType.Magnet,
+                SpellType.Shield,
+                SpellType.Growth
             };
 
-            // Fisher-Yates 的前五步足够从六种道具中抽出五种且不重复。
+            // Fisher-Yates 的前五步足够抽出五种道具且不重复。
             for (int i = 0; i < SlotCount; i++)
             {
                 int swapIndex = UnityEngine.Random.Range(i, candidates.Length);
                 SpellType selected = candidates[i];
                 candidates[i] = candidates[swapIndex];
                 candidates[swapIndex] = selected;
-                slots[i] = new Slot { type = candidates[i], count = 1 };
+                slots[i] = new Slot { type = candidates[i], count = MaxStack };
             }
 
             Changed?.Invoke();
@@ -241,6 +234,12 @@ namespace WoguaShooter.Core
                 case SpellType.Repeater:
                     weaponController?.ActivateSpell(type);
                     return weaponController != null;
+                case SpellType.Magnet:
+                    return playerController != null && playerController.ActivateMagnet();
+                case SpellType.Shield:
+                    return playerController != null && playerController.ActivateShield();
+                case SpellType.Growth:
+                    return playerController != null && playerController.ActivateGrowth();
                 default:
                     return false;
             }
