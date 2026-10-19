@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "title": "发现新版本",
-  "message": "当前旧版仍可离线游玩。请安装 1.1.0 热更新基线后使用后续内容更新。",
+  "message": "当前 1.0.0 是首发基线版本，可正常离线游玩。",
   "luaUrl": "game_rules.lua.txt",
   "catalogUrl": ""
 }

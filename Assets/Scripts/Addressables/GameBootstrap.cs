@@ -115,6 +115,17 @@ namespace WoguaShooter.Addressables
             string rootAddress = !string.IsNullOrWhiteSpace(updateConfig.gameRootAddress)
                 ? updateConfig.gameRootAddress
                 : gameRootAddress;
+            if (bootstrapCanvas != null)
+            {
+                bootstrapCanvas.gameObject.SetActive(false);
+                Destroy(bootstrapCanvas.gameObject);
+            }
+            if (eventSystem != null)
+            {
+                eventSystem.SetActive(false);
+                Destroy(eventSystem);
+            }
+
             HotUpdateState.StartupCompleted = true;
             AsyncOperationHandle<GameObject> load = UnityAddressables.InstantiateAsync(rootAddress);
             yield return load;
@@ -126,10 +137,6 @@ namespace WoguaShooter.Addressables
                 UnityAddressables.Release(configHandle);
             if (transientConfig)
                 Destroy(updateConfig);
-            if (bootstrapCanvas != null)
-                Destroy(bootstrapCanvas.gameObject);
-            if (eventSystem != null)
-                Destroy(eventSystem);
         }
 
         private static Canvas CreateBootstrapCanvas(out GameObject eventSystemObject)

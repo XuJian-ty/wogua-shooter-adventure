@@ -159,7 +159,8 @@ namespace WoguaShooter.Update
             if (panelHandle.Status != AsyncOperationStatus.Succeeded || panelHandle.Result == null)
                 yield break;
 
-            panel = panelHandle.Result.GetComponent<UpdatePanel>();
+            panelHandle.Result.SetActive(false);
+            panel = panelHandle.Result.GetComponentInChildren<UpdatePanel>(true);
             panel?.Hide();
         }
 

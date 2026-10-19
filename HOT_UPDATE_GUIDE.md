@@ -1,6 +1,6 @@
 # 热更新发布说明
 
-当前安装包版本为 `1.1.0`。游戏会先使用安装包内的资源和 Lua，因此断网、服务器关闭、玩家拒绝更新时仍能正常游玩。
+当前首发安装包版本为 `1.0.0`。游戏会先使用安装包内的资源和 Lua，因此断网、服务器关闭、玩家拒绝更新时仍能正常游玩。
 
 ## 可热更新范围
 
@@ -13,7 +13,7 @@
 ## 只修改 Lua
 
 1. 修改 `Assets/Lua` 中的脚本。
-2. 把 `Server/content-version.txt` 改成更高版本，例如 `1.1.1`。
+2. 把 `Server/content-version.txt` 改成更高版本，例如 `1.0.1`。
 3. 在 Unity 中执行 `Tools > Wogua Shooter > Hot Update > Publish Lua Only`。
 4. 打开 `Server/Public/channels/stable-v2/android.json`，确认版本号、文件 URL 和 SHA-256 已更新。
 5. 用旧 APK 启动游戏，选择更新，日志应出现 `HOTUPDATE_ACTIVATED` 和 `XLUA_HOTFIX_APPLIED`。

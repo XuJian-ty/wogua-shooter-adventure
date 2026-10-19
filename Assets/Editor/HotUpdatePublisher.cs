@@ -273,6 +273,13 @@ namespace WoguaShooter.Editor
         {
             if (!Directory.Exists(directory))
                 return string.Empty;
+
+            string expectedCatalog = Path.Combine(
+                directory,
+                $"catalog_{PlayerSettings.bundleVersion}.bin");
+            if (File.Exists(expectedCatalog))
+                return expectedCatalog;
+
             string[] catalogs = Directory.GetFiles(directory, "catalog_*.bin", SearchOption.TopDirectoryOnly);
             if (catalogs.Length == 0)
                 return string.Empty;
