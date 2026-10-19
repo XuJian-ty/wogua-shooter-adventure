@@ -2,6 +2,55 @@
 
 <linker>
 
+	<assembly fullname="Assembly-CSharp">
+	    <type fullname="WoguaShooter.Core.AudioManager" preserve="all"/>
+		<type fullname="WoguaShooter.Core.BackgroundScroller" preserve="all"/>
+		<type fullname="WoguaShooter.Core.CoinCollectible" preserve="all"/>
+		<type fullname="WoguaShooter.Core.CollectibleWeapon" preserve="all"/>
+		<type fullname="WoguaShooter.Core.CombatVfx" preserve="all"/>
+		<type fullname="WoguaShooter.Core.Enemy" preserve="all"/>
+		<type fullname="WoguaShooter.Core.FireParticleVfx" preserve="all"/>
+		<type fullname="WoguaShooter.Core.GameManager" preserve="all"/>
+		<type fullname="WoguaShooter.Core.GameplaySpriteLibrary" preserve="all"/>
+		<type fullname="WoguaShooter.Diagnostics.HotfixAcceptanceProbe" preserve="all"/>
+		<type fullname="WoguaShooter.Core.PlayerController" preserve="all"/>
+		<type fullname="WoguaShooter.Core.Projectile" preserve="all"/>
+		<type fullname="WoguaShooter.Core.RuntimeEffectSprites" preserve="all"/>
+		<type fullname="WoguaShooter.Core.SpawnManager" preserve="all"/>
+		<type fullname="WoguaShooter.Core.SpellInventory" preserve="all"/>
+		<type fullname="WoguaShooter.Core.WeaponController" preserve="all"/>
+		<type fullname="WoguaShooter.Core.WorldHazard" preserve="all"/>
+		<type fullname="WoguaShooter.UI.FlowUIController" preserve="all"/>
+		<type fullname="WoguaShooter.UI.LeaderboardService" preserve="all"/>
+		<type fullname="WoguaShooter.UI.LeaderboardUIController" preserve="all"/>
+		<type fullname="WoguaShooter.UI.LoadingOverlayController" preserve="all"/>
+		<type fullname="WoguaShooter.UI.SpellIconFactory" preserve="all"/>
+		<type fullname="WoguaShooter.UI.SpellSlotView" preserve="all"/>
+		<type fullname="WoguaShooter.UI.TutorialGradientTextEffect" preserve="all"/>
+		<type fullname="WoguaShooter.UI.TutorialGuideController" preserve="all"/>
+		<type fullname="WoguaShooter.UI.UIButtonMotion" preserve="all"/>
+		<type fullname="WoguaShooter.UI.UIController" preserve="all"/>
+		<type fullname="Tutorial.BaseClass" preserve="all"/>
+		<type fullname="Tutorial.TestEnum" preserve="all"/>
+		<type fullname="Tutorial.DerivedClass" preserve="all"/>
+		<type fullname="Tutorial.ICalc" preserve="all"/>
+		<type fullname="Tutorial.DerivedClassExtensions" preserve="all"/>
+		<type fullname="XLuaTest.LuaBehaviour" preserve="all"/>
+		<type fullname="XLuaTest.Pedding" preserve="all"/>
+		<type fullname="XLuaTest.MyStruct" preserve="all"/>
+		<type fullname="XLuaTest.MyEnum" preserve="all"/>
+		<type fullname="XLuaTest.NoGc" preserve="all"/>
+		<type fullname="XLuaTest.BaseTest" preserve="all"/>
+		<type fullname="XLuaTest.Foo1Parent" preserve="all"/>
+		<type fullname="XLuaTest.Foo2Parent" preserve="all"/>
+		<type fullname="XLuaTest.Foo1Child" preserve="all"/>
+		<type fullname="XLuaTest.Foo2Child" preserve="all"/>
+		<type fullname="XLuaTest.Foo" preserve="all"/>
+		<type fullname="XLuaTest.FooExtension" preserve="all"/>
+		<type fullname="Tutorial.DerivedClass+TestEnumInner" preserve="all"/>
+		
+	</assembly>
+
 	<assembly fullname="mscorlib">
 	    <type fullname="System.Object" preserve="all"/>
 		<type fullname="System.Collections.Generic.List`1[System.Int32]" preserve="all"/>
@@ -44,28 +93,6 @@
 
 	<assembly fullname="UnityEngine.ParticleSystemModule">
 	    <type fullname="UnityEngine.ParticleSystem" preserve="all"/>
-		
-	</assembly>
-
-	<assembly fullname="Assembly-CSharp">
-	    <type fullname="Tutorial.BaseClass" preserve="all"/>
-		<type fullname="Tutorial.TestEnum" preserve="all"/>
-		<type fullname="Tutorial.DerivedClass" preserve="all"/>
-		<type fullname="Tutorial.ICalc" preserve="all"/>
-		<type fullname="Tutorial.DerivedClassExtensions" preserve="all"/>
-		<type fullname="XLuaTest.LuaBehaviour" preserve="all"/>
-		<type fullname="XLuaTest.Pedding" preserve="all"/>
-		<type fullname="XLuaTest.MyStruct" preserve="all"/>
-		<type fullname="XLuaTest.MyEnum" preserve="all"/>
-		<type fullname="XLuaTest.NoGc" preserve="all"/>
-		<type fullname="XLuaTest.BaseTest" preserve="all"/>
-		<type fullname="XLuaTest.Foo1Parent" preserve="all"/>
-		<type fullname="XLuaTest.Foo2Parent" preserve="all"/>
-		<type fullname="XLuaTest.Foo1Child" preserve="all"/>
-		<type fullname="XLuaTest.Foo2Child" preserve="all"/>
-		<type fullname="XLuaTest.Foo" preserve="all"/>
-		<type fullname="XLuaTest.FooExtension" preserve="all"/>
-		<type fullname="Tutorial.DerivedClass+TestEnumInner" preserve="all"/>
 		
 	</assembly>
 

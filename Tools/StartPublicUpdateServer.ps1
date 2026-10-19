@@ -6,7 +6,9 @@ param(
 $ErrorActionPreference = "Stop"
 $cloudflared = "C:\Program Files (x86)\cloudflared\cloudflared.exe"
 $configPath = Join-Path $env:USERPROFILE ".cloudflared\config.yml"
-$pidFile = Join-Path $PSScriptRoot "..\Server\.tunnel.pid"
+$runDirectory = Join-Path $PSScriptRoot "..\Server\Run"
+New-Item -ItemType Directory -Force -Path $runDirectory | Out-Null
+$pidFile = Join-Path $runDirectory ".tunnel.pid"
 
 if (-not (Test-Path -LiteralPath $cloudflared)) {
     throw "cloudflared is not installed."

@@ -1,0 +1,16 @@
+PlayerRules = {}
+
+function PlayerRules.GetJumpForce(jumpNumber, firstJumpForce, secondJumpForce)
+    if jumpNumber == 0 then
+        return firstJumpForce
+    end
+    return secondJumpForce
+end
+
+function PlayerRules.GetGlideHoldDelay(defaultValue)
+    return defaultValue
+end
+
+function PlayerRules.GetGlideDescentSpeed(defaultValue)
+    return defaultValue
+end

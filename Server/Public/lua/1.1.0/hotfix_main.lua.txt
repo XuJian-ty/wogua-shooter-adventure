@@ -1,0 +1,5 @@
+-- 业务类已由 xLua Hotfix 注入。正式补丁可在此使用 xlua.hotfix 覆盖 C# 方法。
+-- 启动器会最后执行本文件，保证规则模块已经全部加载。
+HotfixMain = {
+    version = HotUpdateConfig.version
+}

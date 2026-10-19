@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Base Gameplay
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Base Gameplay
+  m_GUID: 029e671ed27cb7e418b6a54af8790ea9
+  m_SerializeEntries:
+  - m_GUID: 687cf39bfc6619946bec55509aab664f
+    m_Address: map/ground
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - hot-update-preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 74202dbb4477e0b41a59caa57b490d1c
+    m_Address: game/root
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - hot-update-preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c1c3485ef0dcfd243917f763d92b4765
+    m_Address: config/game
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - hot-update-preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c7ec4f29107764045a67b6629317a3ba
+    m_Address: character/player
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - hot-update-preload
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 1b5c420f1df22fe44b895b607ceb9325, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 0c97c54b4a2ee74459d1df7e6421f29e, type: 2}
+    - {fileID: 11400000, guid: 66da24d8f63439f4dbac0cea7031ed47, type: 2}
+    m_SchemaDisplayOrder:
+    - Base Gameplay_ContentUpdateGroupSchema
+    - Base Gameplay_BundledAssetGroupSchema
+  m_IncludeInBuild: 1
+  m_IncludeInBuildMigrated: 1

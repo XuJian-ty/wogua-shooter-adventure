@@ -1,0 +1,57 @@
+{
+    "schemaVersion": 2,
+    "contentVersion": "1.1.0",
+    "minClientVersion": "1.1.0",
+    "title": "发现新版本",
+    "message": "新的游戏内容已准备好，可以立即更新。",
+    "catalogUrl": "https://update.xinyin.space/addressables/Android/catalog_1.1.0.bin",
+    "catalogSha256": "ed9fd8e22e88667538d7fab5f013b280a4f641424242c9cf660ac155c0b86f36",
+    "preloadLabel": "hot-update-preload",
+    "luaFiles": [
+        {
+            "path": "config.lua.txt",
+            "url": "https://update.xinyin.space/lua/1.1.0/config.lua.txt",
+            "sha256": "a5499c40f15b4cf09409ce929dd0e1746a96803961957b3e43133277f2e5a670"
+        },
+        {
+            "path": "player_rules.lua.txt",
+            "url": "https://update.xinyin.space/lua/1.1.0/player_rules.lua.txt",
+            "sha256": "b76efb420199c420a7179e85495a6b99cb687454f7dc2abbcba97752bcdb1ffb"
+        },
+        {
+            "path": "weapon_rules.lua.txt",
+            "url": "https://update.xinyin.space/lua/1.1.0/weapon_rules.lua.txt",
+            "sha256": "93cc90ee2d99221ed79a2bf35512a000c38171a3e0fd1336ceabe140a4acc885"
+        },
+        {
+            "path": "spawn_rules.lua.txt",
+            "url": "https://update.xinyin.space/lua/1.1.0/spawn_rules.lua.txt",
+            "sha256": "4c521e3b4cd7330c152be70e58fd63045798beb6747dd756030287eafb9df9bd"
+        },
+        {
+            "path": "combat_rules.lua.txt",
+            "url": "https://update.xinyin.space/lua/1.1.0/combat_rules.lua.txt",
+            "sha256": "8b5ab8e0bbc280d4cad6ccb1dcf19bc0c7bd1c7d600d865adc761126582f6041"
+        },
+        {
+            "path": "progression_rules.lua.txt",
+            "url": "https://update.xinyin.space/lua/1.1.0/progression_rules.lua.txt",
+            "sha256": "5e6b807ca23d270249a749cb1d677e6e771368e7a84b9865aeba052b7d7a14f4"
+        },
+        {
+            "path": "tutorial_rules.lua.txt",
+            "url": "https://update.xinyin.space/lua/1.1.0/tutorial_rules.lua.txt",
+            "sha256": "cffcd2948fad70a6614f61883fa4e8a7dc3a60125eb0907843a1fe2b8edb276a"
+        },
+        {
+            "path": "flow_rules.lua.txt",
+            "url": "https://update.xinyin.space/lua/1.1.0/flow_rules.lua.txt",
+            "sha256": "a3c5bc0a3c3d335e88512ec39c15fd0a3e72aec7029f75d3906391485f286542"
+        },
+        {
+            "path": "hotfix_main.lua.txt",
+            "url": "https://update.xinyin.space/lua/1.1.0/hotfix_main.lua.txt",
+            "sha256": "3e4a74651357d3643bf56aef0daf22f0dc68f22a4cd1b1a423b207828ff59333"
+        }
+    ]
+}

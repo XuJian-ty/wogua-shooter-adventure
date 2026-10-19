@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using WoguaShooter.Config;
 using WoguaShooter.Core;
+using WoguaShooter.Lua;
 
 namespace WoguaShooter.UI
 {
@@ -469,35 +470,44 @@ namespace WoguaShooter.UI
             switch (step)
             {
                 case Step.Jump:
-                    message = "点击屏幕完成第一段跳跃";
+                    message = GetTutorialText("jump", "点击屏幕完成第一段跳跃");
                     break;
                 case Step.DoubleJump:
-                    message = "还在空中时再次轻点\n完成二段跳";
+                    message = GetTutorialText("doubleJump", "还在空中时再次轻点\n完成二段跳");
                     break;
                 case Step.Glide:
-                    message = "在空中长按屏幕开始滑翔\n松开即可结束";
+                    message = GetTutorialText("glide", "在空中长按屏幕开始滑翔\n松开即可结束");
                     break;
                 case Step.UseItem:
-                    message = "点击右下角的道具图标\n主动使用一次道具";
+                    message = GetTutorialText("useItem", "点击右下角的道具图标\n主动使用一次道具");
                     break;
                 case Step.DiscardItem:
-                    message = "按住另一个道具拖出槽位\n松手将它丢弃";
+                    message = GetTutorialText("discardItem", "按住另一个道具拖出槽位\n松手将它丢弃");
                     break;
                 case Step.CollectCoin:
-                    message = "拾取路径上的金币，可以获得分数";
+                    message = GetTutorialText("collectCoin", "拾取路径上的金币，可以获得分数");
                     break;
                 case Step.Score:
-                    message = "跳起来，让子弹命中悬浮幽灵\n击杀怪物即可得分";
+                    message = GetTutorialText("score", "跳起来，让子弹命中悬浮幽灵\n击杀怪物即可得分");
                     break;
                 case Step.StompScore:
-                    message = "从上方踩中骷髅头顶\n击杀分 + 踩踏分，奖励翻倍";
+                    message = GetTutorialText("stompScore", "从上方踩中骷髅头顶\n击杀分 + 踩踏分，奖励翻倍");
                     break;
                 default:
-                    message = "在冒险过程中不断收集金币和击杀怪物可以获取更高的得分，\n从而开启后续关卡的挑战";
+                    message = GetTutorialText(
+                        "finalMessage",
+                        "在冒险过程中不断收集金币和击杀怪物可以获取更高的得分，\n从而开启后续关卡的挑战");
                     break;
             }
 
             instructionText.text = message;
+        }
+
+        private static string GetTutorialText(string key, string fallback)
+        {
+            return LuaHotUpdateRuntime.Instance != null
+                ? LuaHotUpdateRuntime.Instance.GetString("TutorialRules", key, fallback)
+                : fallback;
         }
 
         private void ApplyTransitionPermissions(Step nextStep)

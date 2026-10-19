@@ -1,4 +1,4 @@
--- This file is downloaded only after the player accepts an update.
+-- 旧版 1.0.0 使用的兼容规则文件，请勿删除。
 GameRules = {}
 
 function GameRules.GetEnemySpawnInterval(elapsedTime, startInterval, acceleration, minInterval)

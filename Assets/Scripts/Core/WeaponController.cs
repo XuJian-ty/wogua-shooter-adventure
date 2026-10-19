@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using WoguaShooter.Config;
+using WoguaShooter.Lua;
 
 namespace WoguaShooter.Core
 {
@@ -269,11 +270,12 @@ namespace WoguaShooter.Core
         {
             WeaponConfig first = config != null ? config.GetWeapon(CurrentType) : null;
             float interval = first != null ? first.fireInterval : 0.75f;
+            interval = ResolveFireInterval(CurrentType, interval);
             if (HasSecondMuzzle)
             {
                 WeaponConfig second = config != null ? config.GetWeapon(SecondaryType) : null;
                 if (second != null)
-                    interval = Mathf.Min(interval, second.fireInterval);
+                    interval = Mathf.Min(interval, ResolveFireInterval(SecondaryType, second.fireInterval));
             }
 
             GameManager manager = GameManager.Instance;
@@ -283,6 +285,14 @@ namespace WoguaShooter.Core
             float startSpeed = Mathf.Max(0.01f, config.backgroundStartSpeed);
             float currentSpeed = Mathf.Max(startSpeed, manager.GetBackgroundSpeed());
             return Mathf.Max(0.05f, interval * startSpeed / currentSpeed);
+        }
+
+        private static float ResolveFireInterval(WeaponType type, float fallback)
+        {
+            return LuaHotUpdateRuntime.Instance != null
+                ? LuaHotUpdateRuntime.Instance.CallFloat(
+                    "WeaponRules", "GetFireInterval", fallback, (int)type, fallback)
+                : fallback;
         }
 
         private void ApplyMouths()

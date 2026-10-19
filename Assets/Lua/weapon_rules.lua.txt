@@ -1,0 +1,13 @@
+WeaponRules = {}
+
+function WeaponRules.GetFireInterval(weaponType, defaultValue)
+    return defaultValue
+end
+
+function WeaponRules.GetProjectileSpeed(weaponType, defaultValue)
+    return defaultValue
+end
+
+function WeaponRules.GetExplosionRadius(weaponType, defaultValue)
+    return defaultValue
+end

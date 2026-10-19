@@ -22,6 +22,87 @@ namespace XLua.CSObjectWrap
         static void wrapInit0(LuaEnv luaenv, ObjectTranslator translator)
         {
         
+            translator.DelayWrapLoader(typeof(WoguaShooter.Core.AudioManager), WoguaShooterCoreAudioManagerWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.Core.BackgroundScroller), WoguaShooterCoreBackgroundScrollerWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.Core.CoinCollectible), WoguaShooterCoreCoinCollectibleWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.Core.CollectibleWeapon), WoguaShooterCoreCollectibleWeaponWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.Core.CombatVfx), WoguaShooterCoreCombatVfxWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.Core.Enemy), WoguaShooterCoreEnemyWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.Core.FireParticleVfx), WoguaShooterCoreFireParticleVfxWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.Core.GameManager), WoguaShooterCoreGameManagerWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.Core.GameplaySpriteLibrary), WoguaShooterCoreGameplaySpriteLibraryWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.Diagnostics.HotfixAcceptanceProbe), WoguaShooterDiagnosticsHotfixAcceptanceProbeWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.Core.PlayerController), WoguaShooterCorePlayerControllerWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.Core.Projectile), WoguaShooterCoreProjectileWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.Core.RuntimeEffectSprites), WoguaShooterCoreRuntimeEffectSpritesWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.Core.SpawnManager), WoguaShooterCoreSpawnManagerWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.Core.SpellInventory), WoguaShooterCoreSpellInventoryWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.Core.WeaponController), WoguaShooterCoreWeaponControllerWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.Core.WorldHazard), WoguaShooterCoreWorldHazardWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.UI.FlowUIController), WoguaShooterUIFlowUIControllerWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.UI.LeaderboardService), WoguaShooterUILeaderboardServiceWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.UI.LeaderboardUIController), WoguaShooterUILeaderboardUIControllerWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.UI.LoadingOverlayController), WoguaShooterUILoadingOverlayControllerWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.UI.SpellIconFactory), WoguaShooterUISpellIconFactoryWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.UI.SpellSlotView), WoguaShooterUISpellSlotViewWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.UI.TutorialGradientTextEffect), WoguaShooterUITutorialGradientTextEffectWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.UI.TutorialGuideController), WoguaShooterUITutorialGuideControllerWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.UI.UIButtonMotion), WoguaShooterUIUIButtonMotionWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(WoguaShooter.UI.UIController), WoguaShooterUIUIControllerWrap.__Register);
+        
+        
             translator.DelayWrapLoader(typeof(object), SystemObjectWrap.__Register);
         
         
@@ -93,6 +174,10 @@ namespace XLua.CSObjectWrap
         
             translator.DelayWrapLoader(typeof(UnityEngine.Renderer), UnityEngineRendererWrap.__Register);
         
+        }
+        
+        static void wrapInit1(LuaEnv luaenv, ObjectTranslator translator)
+        {
         
             translator.DelayWrapLoader(typeof(UnityEngine.Light), UnityEngineLightWrap.__Register);
         
@@ -170,6 +255,8 @@ namespace XLua.CSObjectWrap
         {
             
             wrapInit0(luaenv, translator);
+            
+            wrapInit1(luaenv, translator);
             
             
             translator.AddInterfaceBridgeCreator(typeof(System.Collections.IEnumerator), SystemCollectionsIEnumeratorBridge.__Create);

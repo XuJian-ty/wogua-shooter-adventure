@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using WoguaShooter.Config;
+using WoguaShooter.Lua;
 using WoguaShooter.UI;
 
 namespace WoguaShooter.Core
@@ -108,7 +109,17 @@ namespace WoguaShooter.Core
 
         public float GetBackgroundSpeed()
         {
-            return config != null ? config.EvaluateBackgroundSpeed(ElapsedTime) : 3f;
+            float fallback = config != null ? config.EvaluateBackgroundSpeed(ElapsedTime) : 3f;
+            if (config == null || LuaHotUpdateRuntime.Instance == null)
+                return fallback;
+            return LuaHotUpdateRuntime.Instance.CallFloat(
+                "FlowRules",
+                "GetBackgroundSpeed",
+                fallback,
+                ElapsedTime,
+                config.backgroundStartSpeed,
+                config.backgroundMaxSpeed,
+                config.backgroundSpeedHalfTime);
         }
 
         public void AddScore(int amount)

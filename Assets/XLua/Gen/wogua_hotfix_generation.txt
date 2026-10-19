@@ -1,0 +1,2 @@
+WOGUA_HOTFIX_CONFIG_V1
+WoguaShooter.Diagnostics.HotfixAcceptanceProbe

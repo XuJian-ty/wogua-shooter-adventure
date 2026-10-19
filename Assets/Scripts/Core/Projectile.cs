@@ -1,5 +1,6 @@
 using UnityEngine;
 using WoguaShooter.Config;
+using WoguaShooter.Lua;
 
 namespace WoguaShooter.Core
 {
@@ -41,8 +42,16 @@ namespace WoguaShooter.Core
             bool useWaveTrajectory, float trajectoryAmplitude, float trajectoryFrequency)
         {
             weaponType = type;
-            speed = config != null ? config.projectileSpeed : 12f;
-            explosionRadius = config != null ? config.explosionRadius : 0f;
+            float defaultSpeed = config != null ? config.projectileSpeed : 12f;
+            float defaultRadius = config != null ? config.explosionRadius : 0f;
+            speed = LuaHotUpdateRuntime.Instance != null
+                ? LuaHotUpdateRuntime.Instance.CallFloat(
+                    "WeaponRules", "GetProjectileSpeed", defaultSpeed, (int)type, defaultSpeed)
+                : defaultSpeed;
+            explosionRadius = LuaHotUpdateRuntime.Instance != null
+                ? LuaHotUpdateRuntime.Instance.CallFloat(
+                    "WeaponRules", "GetExplosionRadius", defaultRadius, (int)type, defaultRadius)
+                : defaultRadius;
             lifetime = maxLifetime;
             hasHit = false;
             direction = launchDirection.sqrMagnitude > 0.001f ? launchDirection.normalized : Vector2.right;

@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Base Lua
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Base Lua
+  m_GUID: ddc20239fe7459b49a0d986d9732ebb3
+  m_SerializeEntries:
+  - m_GUID: 1a878887d5de40c44bd81ac75a72685a
+    m_Address: lua/game_rules
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - hot-update-preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 32ccac0489f1c0246b983e28cef534da
+    m_Address: lua/combat_rules
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - hot-update-preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 558ccbe55e1e0794f92294012a885b19
+    m_Address: lua/progression_rules
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - hot-update-preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 56b4f192f92775e40a9d3f2b24f22f4e
+    m_Address: lua/weapon_rules
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - hot-update-preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6a77b099979bde04d972c5e21f76fb9b
+    m_Address: lua/hotfix_main
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - hot-update-preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 702fc09ceeccd204e917085d9f59d9b7
+    m_Address: lua/flow_rules
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - hot-update-preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cc56e40aa737f2c4cb4f9cfd3b40bd8d
+    m_Address: lua/tutorial_rules
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - hot-update-preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d4ac3e52847329543a55c681d13a9c20
+    m_Address: lua/player_rules
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - hot-update-preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ed78a0865fa8fac47915b1e0090efe83
+    m_Address: lua/spawn_rules
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - hot-update-preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f13ef51f80635914eb0545d61af3f79c
+    m_Address: lua/config
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - hot-update-preload
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 1b5c420f1df22fe44b895b607ceb9325, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 65111b3b325016f49a0869de94055ea2, type: 2}
+    - {fileID: 11400000, guid: eb5caaf80a0dc714381a6f31d02257e2, type: 2}
+    m_SchemaDisplayOrder:
+    - Base Lua_ContentUpdateGroupSchema
+    - Base Lua_BundledAssetGroupSchema
+  m_IncludeInBuild: 1
+  m_IncludeInBuildMigrated: 1

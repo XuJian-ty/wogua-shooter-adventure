@@ -1,0 +1,7 @@
+FlowRules = {}
+
+function FlowRules.GetBackgroundSpeed(elapsedTime, startSpeed, maxSpeed, halfTime)
+    local safeHalfTime = math.max(0.01, halfTime)
+    local progress = 1.0 - math.pow(0.5, elapsedTime / safeHalfTime)
+    return startSpeed + (maxSpeed - startSpeed) * progress
+end

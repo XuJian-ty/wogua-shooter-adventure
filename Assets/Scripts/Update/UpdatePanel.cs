@@ -19,7 +19,7 @@ namespace WoguaShooter.Update
             gameObject.SetActive(true);
             updateButton.gameObject.SetActive(true);
             titleText.text = string.IsNullOrWhiteSpace(manifest.title) ? "发现新版本" : manifest.title;
-            messageText.text = $"版本 {manifest.version}\n{manifest.message}";
+            messageText.text = $"版本 {manifest.ResolvedVersion}\n{manifest.message}";
             statusText.text = string.Empty;
             updateButton.interactable = true;
             laterButton.interactable = true;

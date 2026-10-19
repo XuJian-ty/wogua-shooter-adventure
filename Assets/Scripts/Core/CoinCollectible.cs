@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using WoguaShooter.Lua;
 
 namespace WoguaShooter.Core
 {
@@ -98,7 +99,10 @@ namespace WoguaShooter.Core
             collected = true;
             if (coinCollider != null)
                 coinCollider.enabled = false;
-            GameManager.Instance?.AddScore(1);
+            int score = LuaHotUpdateRuntime.Instance != null
+                ? LuaHotUpdateRuntime.Instance.GetInt("CombatRules", "coinScore", 1)
+                : 1;
+            GameManager.Instance?.AddScore(Mathf.Max(0, score));
             AudioManager.Instance?.PlayCoinCollect();
             Collected?.Invoke(this);
             StartCoroutine(CollectFeedback());

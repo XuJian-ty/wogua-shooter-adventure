@@ -43,7 +43,7 @@ python Tools/GenerateAudioAssets.py
 更新配置位于 `Assets/Configs/UpdateConfig.asset`。正式包使用固定公网 HTTPS 地址：
 
 ```text
-https://update.xinyin.space/version.json
+https://update.xinyin.space/channels/stable-v2/android.json
 ```
 
 公网入口由 Cloudflare Tunnel 转发到本机 `127.0.0.1:8000`，局域网 IP 变化不会影响客户端。
@@ -82,13 +82,8 @@ powershell -ExecutionPolicy Bypass -File .\Tools\StopPublicUpdateServer.ps1
 
 公网地址为 `https://update.xinyin.space/version.json`。电脑关闭、断网或脚本未运行时，游戏会跳过更新检查并继续离线运行。
 
-## 发布 Lua 热更新
+## 发布热更新
 
-1. 修改 `Server/game_rules.lua.txt` 中的业务逻辑。
-2. 将 `Server/version.json` 的 `version` 改成更高版本，例如从 `1.0.0` 改成 `1.0.1`。
-3. 启动本机更新服务器。
-4. 玩家启动游戏后会看到更新弹窗。选择 `LATER` 会继续当前版本；选择 `UPDATE` 会下载并立即加载新 Lua。
+Lua、xLua Hotfix、Addressables 内容更新和真机验收步骤见 `HOT_UPDATE_GUIDE.md`。更新文件会先下载到临时目录，SHA-256 校验和资源预下载全部成功后才会切换为有效版本。失败时继续使用上一次可用内容。
 
-下载后的补丁保存在 `Application.persistentDataPath/HotUpdate/game_rules.lua.txt`。脚本下载失败或校验失败时不会覆盖可用版本。
-
-`catalogUrl` 目前留空。需要发布新的 Addressables 图片或预制件时，可以填入远程 Content Catalog 地址；基础资源仍保留在游戏包内，离线启动不会依赖远程 Catalog。
+`Server/version.json` 和 `Server/Public/game_rules.lua.txt` 只用于兼容旧版 `1.0.0` APK，请勿删除。新版本统一使用 v2 清单。

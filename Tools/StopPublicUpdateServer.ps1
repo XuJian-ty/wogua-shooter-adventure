@@ -1,5 +1,5 @@
 $ErrorActionPreference = "Stop"
-$pidFile = Join-Path $PSScriptRoot "..\Server\.tunnel.pid"
+$pidFile = Join-Path $PSScriptRoot "..\Server\Run\.tunnel.pid"
 
 if (Test-Path -LiteralPath $pidFile) {
     $tunnelProcessId = [int](Get-Content -LiteralPath $pidFile -Raw)

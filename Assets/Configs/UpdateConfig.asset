@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15a9991ae1b4d974ea796eb7a343ae94, type: 3}
   m_Name: UpdateConfig
   m_EditorClassIdentifier: Assembly-CSharp::WoguaShooter.Config.UpdateConfig
-  manifestUrl: https://update.xinyin.space/version.json
+  manifestUrl: https://update.xinyin.space/channels/stable-v2/android.json
   timeoutSeconds: 5
   checkOnStart: 1
+  preloadLabel: hot-update-preload
+  updatePanelAddress: ui/update
+  gameRootAddress: game/root

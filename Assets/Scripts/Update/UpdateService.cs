@@ -44,6 +44,12 @@ namespace WoguaShooter.Update
         {
             if (panel != null)
                 panel.Hide();
+            if (HotUpdateState.StartupCompleted)
+            {
+                IsCheckFinished = true;
+                CheckFinished?.Invoke(false);
+                yield break;
+            }
             if (config == null || !config.checkOnStart)
             {
                 IsCheckFinished = true;
@@ -110,7 +116,7 @@ namespace WoguaShooter.Update
                     manifestError = exception.Message;
                 }
 
-                if (!string.IsNullOrEmpty(manifestError) || manifest == null || string.IsNullOrWhiteSpace(manifest.version))
+                if (!string.IsNullOrEmpty(manifestError) || manifest == null || string.IsNullOrWhiteSpace(manifest.ResolvedVersion))
                 {
                     Debug.LogWarning("更新清单格式错误，已跳过检查：" + manifestError);
                     startupStatus?.ShowInvalidResponse();
@@ -122,8 +128,8 @@ namespace WoguaShooter.Update
                 }
 
                 string currentVersion = PlayerPrefs.GetString(ContentVersionKey, Application.version);
-                Debug.Log($"更新版本比较：remote={manifest?.version}, current={currentVersion}");
-                if (!IsNewer(manifest.version, currentVersion))
+                Debug.Log($"更新版本比较：remote={manifest?.ResolvedVersion}, current={currentVersion}");
+                if (!IsNewer(manifest.ResolvedVersion, currentVersion))
                 {
                     startupStatus?.ShowUpToDate();
                     if (startupStatus != null)
@@ -136,7 +142,7 @@ namespace WoguaShooter.Update
                 availableUpdate = manifest;
                 if (panel != null)
                 {
-                    Debug.Log("显示更新弹窗：" + manifest.version);
+                    Debug.Log("显示更新弹窗：" + manifest.ResolvedVersion);
                     startupStatus?.ShowUpdateFound();
                     if (startupStatus != null)
                         yield return startupStatus.HideAfter(0.25f);
@@ -247,7 +253,7 @@ namespace WoguaShooter.Update
                 }
             }
 
-            PlayerPrefs.SetString(ContentVersionKey, availableUpdate.version);
+            PlayerPrefs.SetString(ContentVersionKey, availableUpdate.ResolvedVersion);
             PlayerPrefs.Save();
             panel?.SetComplete();
             updating = false;

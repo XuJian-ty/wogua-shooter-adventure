@@ -1,0 +1,5 @@
+ProgressionRules = {
+    maximumEntries = 5,
+    maximumNameLength = 6,
+    scoreToUnlockNextLevel = 10000
+}

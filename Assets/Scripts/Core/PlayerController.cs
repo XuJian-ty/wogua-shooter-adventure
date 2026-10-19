@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using WoguaShooter.Config;
+using WoguaShooter.Lua;
 
 namespace WoguaShooter.Core
 {
@@ -161,7 +162,11 @@ namespace WoguaShooter.Core
             if (pointerPressActive && pointerHeld)
                 pointerHeldTime += Time.deltaTime;
 
-            float glideHoldDelay = config != null ? Mathf.Max(0.01f, config.glideHoldDelay) : 0.12f;
+            float defaultGlideHoldDelay = config != null ? Mathf.Max(0.01f, config.glideHoldDelay) : 0.12f;
+            float glideHoldDelay = LuaHotUpdateRuntime.Instance != null
+                ? LuaHotUpdateRuntime.Instance.CallFloat(
+                    "PlayerRules", "GetGlideHoldDelay", defaultGlideHoldDelay, defaultGlideHoldDelay)
+                : defaultGlideHoldDelay;
             if (pointerReleased)
             {
                 bool isTap = pointerPressActive && pointerHeldTime < glideHoldDelay;
@@ -429,7 +434,11 @@ namespace WoguaShooter.Core
             if (body == null)
                 return;
 
-            float descentSpeed = config != null ? config.glideDescentSpeed : 0.45f;
+            float defaultDescentSpeed = config != null ? config.glideDescentSpeed : 0.45f;
+            float descentSpeed = LuaHotUpdateRuntime.Instance != null
+                ? LuaHotUpdateRuntime.Instance.CallFloat(
+                    "PlayerRules", "GetGlideDescentSpeed", defaultDescentSpeed, defaultDescentSpeed)
+                : defaultDescentSpeed;
             body.linearVelocity = new Vector2(0f, -descentSpeed);
 
             if (glideWings != null)
@@ -465,7 +474,13 @@ namespace WoguaShooter.Core
                 return;
 
             StopGlide();
-            float force = jumpCount == 0 ? (config != null ? config.jumpForce : 10f) : (config != null ? config.secondJumpForce : 8.5f);
+            float firstForce = config != null ? config.jumpForce : 10f;
+            float secondForce = config != null ? config.secondJumpForce : 8.5f;
+            float fallbackForce = jumpCount == 0 ? firstForce : secondForce;
+            float force = LuaHotUpdateRuntime.Instance != null
+                ? LuaHotUpdateRuntime.Instance.CallFloat(
+                    "PlayerRules", "GetJumpForce", fallbackForce, jumpCount, firstForce, secondForce)
+                : fallbackForce;
             body.linearVelocity = new Vector2(body.linearVelocity.x, force);
             jumpCount++;
             landingTimer = 0f;

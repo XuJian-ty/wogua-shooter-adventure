@@ -1,0 +1,9 @@
+SpawnRules = {}
+
+function SpawnRules.GetEnemySpawnInterval(elapsedTime, startInterval, acceleration, minInterval)
+    local value = startInterval - elapsedTime * acceleration
+    if value < minInterval then
+        value = minInterval
+    end
+    return value
+end

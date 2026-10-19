@@ -79,6 +79,17 @@ namespace WoguaShooter.Update
             Show("检测到新的资源版本", 1f, SuccessColor);
         }
 
+        public void ShowDownloading(string fileName, float progress)
+        {
+            string label = string.IsNullOrWhiteSpace(fileName) ? "更新文件" : fileName;
+            Show($"正在下载 {label}  {Mathf.RoundToInt(Mathf.Clamp01(progress) * 100f)}%", progress, NormalColor);
+        }
+
+        public void ShowApplying()
+        {
+            Show("下载完成，正在校验并应用更新...", 0.96f, NormalColor);
+        }
+
         public IEnumerator HideAfter(float seconds)
         {
             if (seconds > 0f)

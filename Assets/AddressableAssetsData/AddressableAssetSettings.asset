@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468a46d0ae32c3544b7d98094e6448a9, type: 3}
   m_Name: AddressableAssetSettings
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetSettings
-  m_DefaultGroup: dba92e6d2f6af664486f399c5ee20de7
+  m_DefaultGroup: 029e671ed27cb7e418b6a54af8790ea9
   m_DisableWriteTypeTree: 0
   m_OptimizeCatalogSize: 0
-  m_BuildRemoteCatalog: 0
+  m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
-  m_CatalogRequestsTimeout: 0
-  m_DisableCatalogUpdateOnStart: 0
+  m_CatalogRequestsTimeout: 10
+  m_DisableCatalogUpdateOnStart: 1
   m_InternalIdNamingMode: 0
   m_InternalBundleIdMode: 1
   m_AssetLoadMode: 0
@@ -29,7 +29,7 @@ MonoBehaviour:
     m_AssemblyName: Unity.ResourceManager
     m_ClassName: UnityEngine.ResourceManagement.ResourceProviders.AssetBundleProvider
   m_IgnoreUnsupportedFilesInBuild: 0
-  m_UniqueBundleIds: 0
+  m_UniqueBundleIds: 1
   m_EnableJsonCatalog: 0
   m_CatalogProviderType:
     m_AssemblyName: Unity.Addressables
@@ -41,7 +41,7 @@ MonoBehaviour:
   m_maxConcurrentWebRequests: 3
   m_UseUWRForLocalBundles: 0
   m_BundleTimeout: 0
-  m_BundleRetryCount: 0
+  m_BundleRetryCount: 3
   m_BundleRedirectLimit: -1
   m_SharedBundleSettings: 0
   m_SharedBundleSettingsCustomGroupIndex: 0
@@ -57,14 +57,19 @@ MonoBehaviour:
   m_RemoteCatalogBuildPath:
     m_Id: 04bbad9f9e822d34c9698d99dfa76599
   m_RemoteCatalogLoadPath:
-    m_Id: 
+    m_Id: 8af45d35796c08644bc2f91ee51f980d
   m_ContentStateBuildPathProfileVariableName: <default settings path>
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 0
   m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
   m_GroupAssets:
+  - {fileID: 11400000, guid: 9806b2133c257f94798a8f0c950ef701, type: 2}
+  - {fileID: 11400000, guid: 2d58d46d379c63442af1bbd33285c6e4, type: 2}
+  - {fileID: 11400000, guid: 4919efcbfe03d3a46bb11a906efc171a, type: 2}
+  - {fileID: 11400000, guid: 1623c9d7730cca440992a2abab64d856, type: 2}
   - {fileID: 11400000, guid: 33afb8de9b64c3a4cbe32ae81d314646, type: 2}
+  - {fileID: 11400000, guid: 0ee0dceaa3da92b49b067d3081438ad1, type: 2}
   m_BuildSettings:
     m_LogResourceManagerExceptions: 1
     m_BundleBuildPath: Temp/com.unity.addressables/AssetBundles
@@ -80,6 +85,20 @@ MonoBehaviour:
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
       - m_Id: 8af45d35796c08644bc2f91ee51f980d
         m_Value: <undefined>
+      - m_Id: 9496b07345399c2479022f3e7b21ebeb
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+      - m_Id: 9b0940c780bdfdd41a61e763affbb2fe
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+    - m_InheritedParent: 
+      m_Id: c68f59de9e9e0374d81f97753ac93617
+      m_ProfileName: stable-v2
+      m_Values:
+      - m_Id: 04bbad9f9e822d34c9698d99dfa76599
+        m_Value: 'Server/Staging/[BuildTarget]'
+      - m_Id: 399b1e4f1207691468ba483f7025dea4
+        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+      - m_Id: 8af45d35796c08644bc2f91ee51f980d
+        m_Value: 'https://update.xinyin.space/addressables/[BuildTarget]'
       - m_Id: 9496b07345399c2479022f3e7b21ebeb
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: 9b0940c780bdfdd41a61e763affbb2fe
@@ -104,6 +123,7 @@ MonoBehaviour:
   m_LabelTable:
     m_LabelNames:
     - default
+    - hot-update-preload
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: e55d97e18f2e1924dad4e16d449888cd, type: 2}
@@ -117,7 +137,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: df78c5f9a428aa647be4c4bc3067b6dc, type: 2}
   - {fileID: 11400000, guid: 0b929a9138ab50d4b8e3032d5b390a46, type: 2}
   - {fileID: 11400000, guid: a46b6e477609b9b4585e31e87a41a311, type: 2}
-  m_ActiveProfileId: b6e4e6bde88a6b442957037cc6a91e04
+  m_ActiveProfileId: c68f59de9e9e0374d81f97753ac93617
   m_ContentDirectoryCatalogNameMigrated: 0
   m_CatalogFormatMigrated: 1
   m_CrcCachedBundleFlagMigrated: 1

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using UnityEngine;
+using WoguaShooter.Lua;
 
 namespace WoguaShooter.UI
 {
@@ -21,13 +22,26 @@ namespace WoguaShooter.UI
 
     public static class LeaderboardService
     {
-        public const int MaximumEntries = 5;
-        public const int MaximumNameLength = 6;
-        public const int ScoreToUnlockNextLevel = 10000;
+        private const int DefaultMaximumEntries = 5;
+        private const int DefaultMaximumNameLength = 6;
+        private const int DefaultScoreToUnlockNextLevel = 10000;
+
+        public static int MaximumEntries => ReadRule("maximumEntries", DefaultMaximumEntries, 1);
+        public static int MaximumNameLength => ReadRule("maximumNameLength", DefaultMaximumNameLength, 1);
+        public static int ScoreToUnlockNextLevel => ReadRule(
+            "scoreToUnlockNextLevel", DefaultScoreToUnlockNextLevel, 0);
 
         private const string SaveFileName = "game_data.json";
         private const string LegacySaveKey = "WoguaShooter.Leaderboards.V1";
         private static LeaderboardSaveData cachedData;
+
+        private static int ReadRule(string fieldName, int fallback, int minimum)
+        {
+            int value = LuaHotUpdateRuntime.Instance != null
+                ? LuaHotUpdateRuntime.Instance.GetInt("ProgressionRules", fieldName, fallback)
+                : fallback;
+            return Mathf.Max(minimum, value);
+        }
 
         public static string SaveFilePath => Path.Combine(Application.persistentDataPath, SaveFileName);
 

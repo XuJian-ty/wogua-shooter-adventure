@@ -1,6 +1,6 @@
 $ErrorActionPreference = "Stop"
-$serverDirectory = (Resolve-Path (Join-Path $PSScriptRoot "..\Server")).Path
-$pidFile = Join-Path $serverDirectory ".server.pid"
+$serverRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\Server")).Path
+$pidFile = Join-Path $serverRoot "Run\.server.pid"
 
 if (-not (Test-Path -LiteralPath $pidFile)) {
     Write-Host "The update server is not running."

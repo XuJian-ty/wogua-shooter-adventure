@@ -37,7 +37,7 @@ MonoBehaviour:
   m_Timeout: 0
   m_ChunkedTransfer: 0
   m_RedirectLimit: -1
-  m_RetryCount: 0
+  m_RetryCount: 3
   m_BuildPath:
     m_Id: 9b0940c780bdfdd41a61e763affbb2fe
   m_LoadPath:

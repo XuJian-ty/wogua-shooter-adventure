@@ -4,8 +4,11 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$serverDirectory = (Resolve-Path (Join-Path $PSScriptRoot "..\Server")).Path
-$pidFile = Join-Path $serverDirectory ".server.pid"
+$serverRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\Server")).Path
+$serverDirectory = Join-Path $serverRoot "Public"
+$runDirectory = Join-Path $serverRoot "Run"
+New-Item -ItemType Directory -Force -Path $serverDirectory, $runDirectory | Out-Null
+$pidFile = Join-Path $runDirectory ".server.pid"
 
 if (Test-Path -LiteralPath $pidFile) {
     $savedProcessId = [int](Get-Content -LiteralPath $pidFile -Raw)
