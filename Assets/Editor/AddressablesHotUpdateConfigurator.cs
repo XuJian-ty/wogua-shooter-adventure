@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
@@ -22,6 +23,8 @@ namespace WoguaShooter.Editor
 
         private const string RemoteBuildPath = "Server/Staging/[BuildTarget]";
         private const string RemoteLoadPath = "https://update.xinyin.space/addressables/[BuildTarget]";
+        private const string LevelTwoBackgroundPath = "Assets/Art/背景/第二关背景.png";
+        private const string LevelOneBackgroundPath = "Assets/Art/背景/背景参考.png";
 
         private static readonly string[] BootstrapAddresses =
         {
@@ -34,6 +37,7 @@ namespace WoguaShooter.Editor
             "game/root",
             "character/player",
             "map/ground",
+            "map/level2/background/1.0.1",
             "config/game"
         };
 
@@ -75,6 +79,7 @@ namespace WoguaShooter.Editor
         [MenuItem("Tools/Wogua Shooter/Hot Update/Configure Addressables")]
         public static void Configure()
         {
+            EnsureLevelTwoBackgroundAsset();
             AddressableAssetSettings settings = RequireSettings();
             ConfigureProfile(settings);
 
@@ -114,6 +119,36 @@ namespace WoguaShooter.Editor
 
             ValidateInternal(settings, true);
             Debug.Log("Addressables 热更新配置完成。首包资源仍保存在本地组，Remote Content 仅用于后续远端内容。");
+        }
+
+        private static void EnsureLevelTwoBackgroundAsset()
+        {
+            if (!File.Exists(LevelTwoBackgroundPath))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(LevelTwoBackgroundPath));
+                File.Copy(LevelOneBackgroundPath, LevelTwoBackgroundPath);
+            }
+
+            AssetDatabase.ImportAsset(LevelTwoBackgroundPath, ImportAssetOptions.ForceSynchronousImport);
+            TextureImporter importer = AssetImporter.GetAtPath(LevelTwoBackgroundPath) as TextureImporter;
+            if (importer == null)
+                throw new InvalidOperationException("无法导入第二关背景占位资源：" + LevelTwoBackgroundPath);
+
+            importer.textureType = TextureImporterType.Sprite;
+            importer.spriteImportMode = SpriteImportMode.Single;
+            importer.spritePixelsPerUnit = 100f;
+            importer.mipmapEnabled = false;
+            importer.wrapMode = TextureWrapMode.Clamp;
+            importer.textureCompression = TextureImporterCompression.Uncompressed;
+            importer.maxTextureSize = 2048;
+            importer.SaveAndReimport();
+
+            AddressableAssetSettings settings = RequireSettings();
+            AddressableAssetGroup gameplay = GetOrCreateGroup(settings, GameplayGroupName);
+            string guid = AssetDatabase.AssetPathToGUID(LevelTwoBackgroundPath);
+            AddressableAssetEntry entry = settings.CreateOrMoveEntry(guid, gameplay, false, false);
+            entry.address = "map/level2/background/1.0.1";
+            entry.SetLabel(PreloadLabel, true, false, false);
         }
 
         [MenuItem("Tools/Wogua Shooter/Hot Update/Validate Addressables")]

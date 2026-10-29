@@ -242,6 +242,7 @@ namespace WoguaShooter.UI
         {
             if (menuPanel == null)
                 return;
+            RefreshContentVersionText();
             gameStarted = false;
             StopGameplay();
             menuPanel.SetActive(true);
@@ -430,6 +431,9 @@ namespace WoguaShooter.UI
             tutorialGuide?.StopTutorial();
             Time.timeScale = 0f;
 
+            if (background != null)
+                yield return background.ApplyLevelTheme(levelId);
+
             if (loadingOverlay != null)
                 yield return loadingOverlay.Play($"正在进入{GetLevelName(levelId)}", () => ActivateLevel(levelId));
             else
@@ -444,12 +448,14 @@ namespace WoguaShooter.UI
         private void ActivateLevel(int levelId)
         {
             CurrentLevelId = Mathf.Clamp(levelId, 1, 2);
+            manager?.SetCurrentLevel(CurrentLevelId);
             gameStarted = true;
             menuPanel.SetActive(false);
             levelPanel.SetActive(false);
             settingsPanel.SetActive(false);
             volumePanel.SetActive(false);
             SetHudButtons(true, true);
+            spawner?.PrepareForLevel();
             player?.GetComponent<WeaponController>()?.ResetWeaponState();
             SetGameplayActive(true);
             manager?.ResetForNewGame();
@@ -694,6 +700,23 @@ namespace WoguaShooter.UI
                     versionText.color = new Color(1f, 1f, 1f, 0.78f);
                 }
             }
+            RefreshContentVersionText();
+        }
+
+        private void RefreshContentVersionText()
+        {
+            if (menuPanel == null)
+                return;
+
+            RectTransform version = FindRect(menuPanel.transform, "VersionText");
+            Text versionText = version != null ? version.GetComponent<Text>() : null;
+            if (versionText == null)
+                return;
+
+            string contentVersion = string.IsNullOrWhiteSpace(HotUpdateState.ContentVersion)
+                ? Application.version
+                : HotUpdateState.ContentVersion;
+            versionText.text = $"版本 {contentVersion}";
         }
 
         private static IEnumerator LoadMenuBackgroundAsync(Image target)

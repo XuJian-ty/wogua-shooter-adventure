@@ -1,57 +1,57 @@
 {
     "schemaVersion": 2,
-    "contentVersion": "1.0.0",
+    "contentVersion": "1.0.1",
     "minClientVersion": "1.0.0",
     "title": "发现新版本",
-    "message": "新的游戏内容已准备好，可以立即更新。",
-    "catalogUrl": "https://update.xinyin.space/addressables/Android/catalog_1.0.0.bin",
-    "catalogSha256": "2b971ad6b854e99a9ed8b44f10ca21614cd9bd34b73a0883146d08493932d627",
+    "message": "更新内容：\n1. 第2关“暮色荒原”换用全新循环地图\n2. 第2关敌人和障碍节奏略微加快\n3. 第1关最高分达到2000分即可解锁第2关",
+    "catalogUrl": "https://update.xinyin.space/addressables/Android/catalog_1.0.1_045f239c96aa.bin",
+    "catalogSha256": "045f239c96aaade90b4752e144e3d1b64112612813c222b7119d35a125f91732",
     "preloadLabel": "hot-update-preload",
     "luaFiles": [
         {
             "path": "config.lua.txt",
-            "url": "https://update.xinyin.space/lua/1.0.0/config.lua.txt",
-            "sha256": "df3164d3ba2e4d56b3797a107c8ea426cc93ba8e8a3729955a96ad9952dce606"
+            "url": "https://update.xinyin.space/lua/1.0.1/config.lua.txt",
+            "sha256": "b61aa4c7f1952c822f07f36703d3dd1efcc8c6ba2774422a2beaa2e213977ea8"
         },
         {
             "path": "player_rules.lua.txt",
-            "url": "https://update.xinyin.space/lua/1.0.0/player_rules.lua.txt",
-            "sha256": "b76efb420199c420a7179e85495a6b99cb687454f7dc2abbcba97752bcdb1ffb"
+            "url": "https://update.xinyin.space/lua/1.0.1/player_rules.lua.txt",
+            "sha256": "4e47cd7526e4089972c5fc6acd6c7a28b55ff05e99218caa3b16686dbc6d5c4e"
         },
         {
             "path": "weapon_rules.lua.txt",
-            "url": "https://update.xinyin.space/lua/1.0.0/weapon_rules.lua.txt",
+            "url": "https://update.xinyin.space/lua/1.0.1/weapon_rules.lua.txt",
             "sha256": "93cc90ee2d99221ed79a2bf35512a000c38171a3e0fd1336ceabe140a4acc885"
         },
         {
             "path": "spawn_rules.lua.txt",
-            "url": "https://update.xinyin.space/lua/1.0.0/spawn_rules.lua.txt",
-            "sha256": "4c521e3b4cd7330c152be70e58fd63045798beb6747dd756030287eafb9df9bd"
+            "url": "https://update.xinyin.space/lua/1.0.1/spawn_rules.lua.txt",
+            "sha256": "2de22be8a056579939906de40ace6bc4b9c7f5eb5772d85fcd133d55d671adf5"
         },
         {
             "path": "combat_rules.lua.txt",
-            "url": "https://update.xinyin.space/lua/1.0.0/combat_rules.lua.txt",
+            "url": "https://update.xinyin.space/lua/1.0.1/combat_rules.lua.txt",
             "sha256": "8b5ab8e0bbc280d4cad6ccb1dcf19bc0c7bd1c7d600d865adc761126582f6041"
         },
         {
             "path": "progression_rules.lua.txt",
-            "url": "https://update.xinyin.space/lua/1.0.0/progression_rules.lua.txt",
-            "sha256": "5e6b807ca23d270249a749cb1d677e6e771368e7a84b9865aeba052b7d7a14f4"
+            "url": "https://update.xinyin.space/lua/1.0.1/progression_rules.lua.txt",
+            "sha256": "a3792ad8d5044850d4f7483bca165d0727ffdccb876fb1196373664db3a9d375"
         },
         {
             "path": "tutorial_rules.lua.txt",
-            "url": "https://update.xinyin.space/lua/1.0.0/tutorial_rules.lua.txt",
+            "url": "https://update.xinyin.space/lua/1.0.1/tutorial_rules.lua.txt",
             "sha256": "cffcd2948fad70a6614f61883fa4e8a7dc3a60125eb0907843a1fe2b8edb276a"
         },
         {
             "path": "flow_rules.lua.txt",
-            "url": "https://update.xinyin.space/lua/1.0.0/flow_rules.lua.txt",
+            "url": "https://update.xinyin.space/lua/1.0.1/flow_rules.lua.txt",
             "sha256": "b04809c1a2818aad01c07b29bdb94804f1947778d88fbb05442ce7bbba377196"
         },
         {
             "path": "hotfix_main.lua.txt",
-            "url": "https://update.xinyin.space/lua/1.0.0/hotfix_main.lua.txt",
-            "sha256": "3e4a74651357d3643bf56aef0daf22f0dc68f22a4cd1b1a423b207828ff59333"
+            "url": "https://update.xinyin.space/lua/1.0.1/hotfix_main.lua.txt",
+            "sha256": "9bdbd0cd2a83a2c40f2378cb65d0adb7b96b2def905fa9343031b1c4c8197bdc"
         }
     ]
 }

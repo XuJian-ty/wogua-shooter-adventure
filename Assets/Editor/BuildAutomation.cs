@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.IO.Compression;
 using UnityEditor;
 using UnityEditor.AddressableAssets.Build;
 using UnityEditor.AddressableAssets.Settings;
@@ -10,6 +11,7 @@ using UnityEngine;
 using WoguaShooter.Core;
 using WoguaShooter.Lua;
 using WoguaShooter.UI;
+using WoguaShooter.Update;
 
 namespace WoguaShooter.Editor
 {
@@ -24,6 +26,7 @@ namespace WoguaShooter.Editor
         [MenuItem("Tools/Wogua Shooter/Build Addressables %#b")]
         public static void BuildAddressables()
         {
+            HotUpdatePublisher.ValidateBaseBuildVersion();
             AddressableAssetSettings.BuildPlayerContent(out AddressablesPlayerBuildResult result);
             if (!string.IsNullOrEmpty(result.Error))
                 throw new InvalidOperationException("Addressables 构建失败：" + result.Error);
@@ -74,6 +77,16 @@ namespace WoguaShooter.Editor
         public static void RunSmokeTest()
         {
             BuildAddressables();
+            StartSmokeTest();
+        }
+
+        public static void RunHotfixSmokeTest()
+        {
+            StartSmokeTest();
+        }
+
+        private static void StartSmokeTest()
+        {
             EditorSceneManager.OpenScene("Assets/Scenes/Game.unity");
             EditorSettings.enterPlayModeOptionsEnabled = true;
             EditorSettings.enterPlayModeOptions = EnterPlayModeOptions.DisableDomainReload;
@@ -131,6 +144,62 @@ namespace WoguaShooter.Editor
             if (report.summary.result != BuildResult.Succeeded)
                 throw new InvalidOperationException("Android 构建失败：" + report.summary.result);
             Debug.Log($"ANDROID_BUILD_PASS path={outputPath} size={report.summary.totalSize}");
+        }
+
+        public static void VerifyAndroidBaselineApk()
+        {
+            string apkPath = Path.GetFullPath("Builds/Android/WoguaShooter.apk");
+            if (!File.Exists(apkPath))
+                throw new FileNotFoundException("找不到待验证的 Android APK。", apkPath);
+
+            string temporaryDirectory = Path.GetFullPath("Temp/ApkVerification");
+            string bundlePath = Path.Combine(temporaryDirectory, "base-lua.bundle");
+            AssetBundle bundle = null;
+            try
+            {
+                Directory.CreateDirectory(temporaryDirectory);
+                using (ZipArchive archive = ZipFile.OpenRead(apkPath))
+                {
+                    ZipArchiveEntry luaBundle = null;
+                    foreach (ZipArchiveEntry entry in archive.Entries)
+                    {
+                        if (entry.FullName.StartsWith("assets/aa/Android/baselua", StringComparison.OrdinalIgnoreCase) &&
+                            entry.FullName.EndsWith(".bundle", StringComparison.OrdinalIgnoreCase))
+                        {
+                            luaBundle = entry;
+                            break;
+                        }
+                    }
+
+                    if (luaBundle == null)
+                        throw new InvalidDataException("APK 中没有找到 Base Lua AssetBundle。");
+                    luaBundle.ExtractToFile(bundlePath, true);
+                }
+
+                bundle = AssetBundle.LoadFromFile(bundlePath);
+                if (bundle == null)
+                    throw new InvalidDataException("无法读取 APK 内的 Base Lua AssetBundle。");
+
+                TextAsset[] luaAssets = bundle.LoadAllAssets<TextAsset>();
+                string combined = string.Empty;
+                for (int i = 0; i < luaAssets.Length; i++)
+                    combined += "\n" + luaAssets[i].text;
+
+                if (!combined.Contains("version = \"1.0.0\"", StringComparison.Ordinal) ||
+                    !combined.Contains("PATCH_1.0.0", StringComparison.Ordinal) ||
+                    combined.Contains("PATCH_1.0.1", StringComparison.Ordinal))
+                {
+                    throw new InvalidDataException("APK 内置 Lua 不是干净的 1.0.0 基线。");
+                }
+
+                Debug.Log($"APK_BASELINE_VERIFY_PASS version=1.0.0 luaAssets={luaAssets.Length}");
+            }
+            finally
+            {
+                bundle?.Unload(true);
+                if (Directory.Exists(temporaryDirectory))
+                    Directory.Delete(temporaryDirectory, true);
+            }
         }
 
         private static void ConfigureAndroidBranding()
@@ -191,6 +260,8 @@ namespace WoguaShooter.Editor
             GameManager manager = UnityEngine.Object.FindFirstObjectByType<GameManager>(FindObjectsInactive.Include);
             PlayerController player = UnityEngine.Object.FindFirstObjectByType<PlayerController>(FindObjectsInactive.Include);
             LuaRuntimeBridge lua = UnityEngine.Object.FindFirstObjectByType<LuaRuntimeBridge>(FindObjectsInactive.Include);
+            BackgroundScroller background = UnityEngine.Object.FindFirstObjectByType<BackgroundScroller>(FindObjectsInactive.Include);
+            SpawnManager spawner = UnityEngine.Object.FindFirstObjectByType<SpawnManager>(FindObjectsInactive.Include);
 
             if (!smokeGameplayStarted)
             {
@@ -212,13 +283,14 @@ namespace WoguaShooter.Editor
                 Rigidbody2D body = player.GetComponent<Rigidbody2D>();
                 if (body != null)
                     body.simulated = true;
-                SpawnManager spawner = UnityEngine.Object.FindFirstObjectByType<SpawnManager>(FindObjectsInactive.Include);
-                BackgroundScroller background = UnityEngine.Object.FindFirstObjectByType<BackgroundScroller>(FindObjectsInactive.Include);
                 if (spawner == null || background == null)
                     Fail("游戏根对象缺少生成器或背景滚动组件");
                 spawner.enabled = true;
                 background.enabled = true;
+                manager.SetCurrentLevel(2);
+                background.StartCoroutine(background.ApplyLevelTheme(2));
                 manager.ResetForNewGame();
+                player.ActivateShield();
                 smokeGameplayStarted = true;
                 gameplayStartTime = EditorApplication.timeSinceStartup;
                 return;
@@ -233,11 +305,12 @@ namespace WoguaShooter.Editor
                 screenshotTaken = true;
             }
 
-            if (gameplayElapsed < 5d)
+            if (gameplayElapsed < 14d)
                 return;
 
             Projectile[] projectiles = UnityEngine.Object.FindObjectsByType<Projectile>(FindObjectsSortMode.None);
             Enemy[] enemies = UnityEngine.Object.FindObjectsByType<Enemy>(FindObjectsSortMode.None);
+            WorldHazard[] hazards = UnityEngine.Object.FindObjectsByType<WorldHazard>(FindObjectsSortMode.None);
 
             if (manager == null)
                 Fail("GameManager 未由 Addressables 加载");
@@ -251,8 +324,31 @@ namespace WoguaShooter.Editor
                 Fail("自动射击未生成子弹");
             if (enemies.Length == 0)
                 Fail("敌人生成逻辑未运行");
+            System.Reflection.FieldInfo spikeSpawnedField = typeof(SpawnManager).GetField(
+                "spikeSpawnedThisRound",
+                System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+            bool spikeSpawned = spikeSpawnedField != null && (bool)spikeSpawnedField.GetValue(spawner);
+            if (!spikeSpawned)
+                Fail("地刺生成逻辑未运行");
 
-            Debug.Log($"SMOKE_TEST_PASS time={manager.ElapsedTime:0.0}, projectiles={projectiles.Length}, enemies={enemies.Length}, lua={lua.IsLoaded}");
+            UnityEngine.UI.Text[] texts = UnityEngine.Object.FindObjectsByType<UnityEngine.UI.Text>(
+                FindObjectsInactive.Include,
+                FindObjectsSortMode.None);
+            UnityEngine.UI.Text versionText = Array.Find(
+                texts,
+                item => item != null && item.gameObject.name == "VersionText");
+            string expectedVersion = string.IsNullOrWhiteSpace(HotUpdateState.ContentVersion)
+                ? Application.version
+                : HotUpdateState.ContentVersion;
+            if (versionText == null || versionText.text != "版本 " + expectedVersion)
+                Fail("主界面版本号未刷新，实际值：" + (versionText != null ? versionText.text : "缺失"));
+
+            SpriteRenderer themedRenderer = background.GetComponentInChildren<SpriteRenderer>();
+            Sprite themedSprite = themedRenderer != null ? themedRenderer.sprite : null;
+            if (themedSprite == null || themedSprite.texture.width != 2000 || themedSprite.texture.height != 640)
+                Fail("第2关循环背景未按 2000x640 规格加载");
+
+            Debug.Log($"SMOKE_TEST_PASS level=2, time={manager.ElapsedTime:0.0}, projectiles={projectiles.Length}, enemies={enemies.Length}, hazards={hazards.Length}, lua={lua.IsLoaded}, versionLabel={versionText.text}, background={themedSprite.name}:{themedSprite.texture.width}x{themedSprite.texture.height}");
             EditorApplication.ExitPlaymode();
         }
 

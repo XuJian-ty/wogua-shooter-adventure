@@ -31,6 +31,7 @@ namespace WoguaShooter.Core
         public GameState State { get; private set; } = GameState.Menu;
         public float ElapsedTime { get; private set; }
         public int Score { get; private set; }
+        public int CurrentLevelId { get; private set; } = 1;
 
         private bool restarting;
         private bool tutorialActive;
@@ -165,6 +166,11 @@ namespace WoguaShooter.Core
             uiController?.ShowPlaying();
         }
 
+        public void SetCurrentLevel(int levelId)
+        {
+            CurrentLevelId = Mathf.Clamp(levelId, 1, 2);
+        }
+
         public void SetTutorialActive(bool active)
         {
             tutorialActive = active;
@@ -200,9 +206,8 @@ namespace WoguaShooter.Core
             Time.timeScale = 0f;
             uiController?.PrepareGameOver();
 
-            FlowUIController flow = FindFirstObjectByType<FlowUIController>(FindObjectsInactive.Include);
             LeaderboardUIController leaderboard = FindFirstObjectByType<LeaderboardUIController>(FindObjectsInactive.Include);
-            int levelId = flow != null ? flow.CurrentLevelId : 1;
+            int levelId = CurrentLevelId;
             LeaderboardService.RecordHighestScore(levelId, Score);
             leaderboard?.HideAll();
             gameOverSequence = StartCoroutine(ShowGameOverSequence(levelId, Score, leaderboard));

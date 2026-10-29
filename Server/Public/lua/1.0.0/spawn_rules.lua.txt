@@ -1,9 +1,65 @@
 SpawnRules = {}
 
-function SpawnRules.GetEnemySpawnInterval(elapsedTime, startInterval, acceleration, minInterval)
+SpawnRules.hazardIntervalMin = 5.5
+SpawnRules.hazardIntervalMax = 8.0
+SpawnRules.missileInitialDelayMin = 4.0
+SpawnRules.missileInitialDelayMax = 7.0
+SpawnRules.missileIntervalMin = 9.0
+SpawnRules.missileIntervalMax = 13.0
+SpawnRules.missileVolleyDelayMin = 0.55
+SpawnRules.missileVolleyDelayMax = 0.9
+
+function SpawnRules.GetEnemySpawnInterval(elapsedTime, startInterval, acceleration, minInterval, levelId)
     local value = startInterval - elapsedTime * acceleration
     if value < minInterval then
         value = minInterval
     end
     return value
+end
+
+local function Lerp(minimum, maximum, randomValue)
+    local value = math.max(0, math.min(1, randomValue or 0))
+    return minimum + (maximum - minimum) * value
+end
+
+function SpawnRules.GetHazardSpawnInterval(randomValue, levelId, configuredMin, configuredMax)
+    return Lerp(SpawnRules.hazardIntervalMin, SpawnRules.hazardIntervalMax, randomValue)
+end
+
+function SpawnRules.GetSpikeChance(levelId)
+    return 0.58
+end
+
+function SpawnRules.GetMissileInitialDelay(randomValue, levelId)
+    return Lerp(SpawnRules.missileInitialDelayMin, SpawnRules.missileInitialDelayMax, randomValue)
+end
+
+function SpawnRules.GetMissileSpawnInterval(randomValue, levelId)
+    return Lerp(SpawnRules.missileIntervalMin, SpawnRules.missileIntervalMax, randomValue)
+end
+
+function SpawnRules.GetMissileVolleyDelay(randomValue, levelId)
+    return Lerp(SpawnRules.missileVolleyDelayMin, SpawnRules.missileVolleyDelayMax, randomValue)
+end
+
+function SpawnRules.GetMissileVolleyCount(randomValue, levelId)
+    local value = randomValue or 0
+    if value < 0.5 then
+        return 1
+    end
+    if value < 0.82 then
+        return 2
+    end
+    return 3
+end
+
+function SpawnRules.GetSpikeGroupCount(randomValue, levelId)
+    local value = randomValue or 0
+    if value < 0.5 then
+        return 1
+    end
+    if value < 0.82 then
+        return 2
+    end
+    return 3
 end

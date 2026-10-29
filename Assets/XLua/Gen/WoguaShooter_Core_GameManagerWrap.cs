@@ -21,13 +21,14 @@ namespace XLua.CSObjectWrap
         {
 			ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
 			System.Type type = typeof(WoguaShooter.Core.GameManager);
-			Utils.BeginObjectRegister(type, L, translator, 0, 10, 4, 0);
+			Utils.BeginObjectRegister(type, L, translator, 0, 11, 5, 0);
 			
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetBackgroundSpeed", _m_GetBackgroundSpeed);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "AddScore", _m_AddScore);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "PauseGame", _m_PauseGame);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "PauseGameWithoutPanel", _m_PauseGameWithoutPanel);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "ResetForNewGame", _m_ResetForNewGame);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetCurrentLevel", _m_SetCurrentLevel);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SetTutorialActive", _m_SetTutorialActive);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "EnterMenuState", _m_EnterMenuState);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "ContinueGame", _m_ContinueGame);
@@ -39,6 +40,7 @@ namespace XLua.CSObjectWrap
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "State", _g_get_State);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "ElapsedTime", _g_get_ElapsedTime);
             Utils.RegisterFunc(L, Utils.GETTER_IDX, "Score", _g_get_Score);
+            Utils.RegisterFunc(L, Utils.GETTER_IDX, "CurrentLevelId", _g_get_CurrentLevelId);
             
 			
 			
@@ -235,6 +237,34 @@ namespace XLua.CSObjectWrap
                 {
                     
                     gen_to_be_invoked.ResetForNewGame(  );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_SetCurrentLevel(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                WoguaShooter.Core.GameManager gen_to_be_invoked = (WoguaShooter.Core.GameManager)translator.FastGetCSObj(L, 1);
+            
+            
+                
+                {
+                    int _levelId = LuaAPI.xlua_tointeger(L, 2);
+                    
+                    gen_to_be_invoked.SetCurrentLevel( _levelId );
                     
                     
                     
@@ -448,6 +478,20 @@ namespace XLua.CSObjectWrap
 			
                 WoguaShooter.Core.GameManager gen_to_be_invoked = (WoguaShooter.Core.GameManager)translator.FastGetCSObj(L, 1);
                 LuaAPI.xlua_pushinteger(L, gen_to_be_invoked.Score);
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 1;
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _g_get_CurrentLevelId(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			
+                WoguaShooter.Core.GameManager gen_to_be_invoked = (WoguaShooter.Core.GameManager)translator.FastGetCSObj(L, 1);
+                LuaAPI.xlua_pushinteger(L, gen_to_be_invoked.CurrentLevelId);
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
             }

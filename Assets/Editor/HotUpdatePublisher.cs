@@ -7,7 +7,9 @@ using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Build;
 using UnityEditor.AddressableAssets.Settings;
+using UnityEditor.Build;
 using UnityEngine;
+using XLua;
 
 namespace WoguaShooter.Editor
 {
@@ -41,7 +43,7 @@ namespace WoguaShooter.Editor
             public string contentVersion;
             public string minClientVersion;
             public string title = "发现新版本";
-            public string message = "新的游戏内容已准备好，可以立即更新。";
+            public string message = "更新内容：\n1. 第2关“暮色荒原”换用全新循环地图\n2. 第2关敌人和障碍节奏略微加快\n3. 第1关最高分达到2000分即可解锁第2关";
             public string catalogUrl;
             public string catalogSha256;
             public string preloadLabel = "hot-update-preload";
@@ -120,18 +122,28 @@ namespace WoguaShooter.Editor
             }
         }
 
+        public static void ValidateBaseBuildVersion()
+        {
+            string contentVersion = ReadContentVersion();
+            if (CompareVersions(contentVersion, PlayerSettings.bundleVersion) != 0)
+            {
+                throw new BuildFailedException(
+                    $"当前内容版本为 {contentVersion}，安装包版本为 {PlayerSettings.bundleVersion}。" +
+                    "为避免覆盖已归档的基础包状态，请发布内容更新；如需构建新 APK，请先同步安装包版本。");
+            }
+        }
+
         [MenuItem("Tools/Wogua Shooter/Hot Update/Publish Lua Only")]
         public static void PublishLuaOnly()
         {
             string contentVersion = ReadContentVersion();
-            string publicPlatformDirectory = GetPublicPlatformDirectory();
-            string catalogPath = FindCatalog(publicPlatformDirectory);
-            WritePublishedFiles(contentVersion, catalogPath);
+            WritePublishedFiles(contentVersion, string.Empty);
             Debug.Log($"HOT_UPDATE_LUA_PUBLISHED version={contentVersion}");
         }
 
         public static void ArchiveBaseBuildAndPublish(AddressablesPlayerBuildResult result)
         {
+            ValidateBaseBuildVersion();
             if (result == null || !string.IsNullOrEmpty(result.Error))
                 throw new InvalidOperationException("不能发布失败的 Addressables 构建。");
 
@@ -159,7 +171,9 @@ namespace WoguaShooter.Editor
 
             string publicPlatformDirectory = GetPublicPlatformDirectory();
             CopyDirectory(sourceDirectory, publicPlatformDirectory);
-            string catalogPath = FindCatalog(publicPlatformDirectory);
+            string catalogPath = CreateVersionedCatalog(
+                FindCatalog(publicPlatformDirectory),
+                contentVersion);
             WritePublishedFiles(contentVersion, catalogPath);
         }
 
@@ -190,6 +204,8 @@ namespace WoguaShooter.Editor
             if (!Directory.Exists(sourceDirectory))
                 throw new DirectoryNotFoundException("Lua 源目录不存在：" + sourceDirectory);
 
+            ValidateLuaSources(sourceDirectory);
+
             string relativeDirectory = $"lua/{contentVersion}";
             string targetDirectory = Path.GetFullPath(Path.Combine("Server/Public", relativeDirectory));
             Directory.CreateDirectory(targetDirectory);
@@ -212,6 +228,31 @@ namespace WoguaShooter.Editor
             }
 
             return published;
+        }
+
+        private static void ValidateLuaSources(string sourceDirectory)
+        {
+            LuaEnv validationEnvironment = new LuaEnv();
+            try
+            {
+                for (int i = 0; i < LuaModuleFiles.Length; i++)
+                {
+                    string fileName = LuaModuleFiles[i];
+                    string sourcePath = Path.Combine(sourceDirectory, fileName);
+                    if (!File.Exists(sourcePath))
+                        throw new FileNotFoundException("缺少 Lua 热更新模块。", sourcePath);
+
+                    using (LuaFunction compiled = validationEnvironment.LoadString(
+                        File.ReadAllText(sourcePath),
+                        fileName))
+                    {
+                    }
+                }
+            }
+            finally
+            {
+                validationEnvironment.Dispose();
+            }
         }
 
         private static void RestoreTemporaryEntries(
@@ -285,6 +326,34 @@ namespace WoguaShooter.Editor
                 return string.Empty;
             Array.Sort(catalogs, StringComparer.OrdinalIgnoreCase);
             return catalogs[catalogs.Length - 1];
+        }
+
+        private static string CreateVersionedCatalog(string sourcePath, string contentVersion)
+        {
+            if (string.IsNullOrWhiteSpace(sourcePath))
+                return string.Empty;
+
+            StringBuilder fileVersion = new StringBuilder(contentVersion.Length);
+            for (int i = 0; i < contentVersion.Length; i++)
+            {
+                char character = contentVersion[i];
+                fileVersion.Append(char.IsLetterOrDigit(character) || character == '.' ||
+                    character == '-' || character == '_' ? character : '_');
+            }
+
+            string catalogHash = ComputeSha256(sourcePath);
+            string shortHash = catalogHash.Substring(0, 12);
+            string targetPath = Path.Combine(
+                Path.GetDirectoryName(sourcePath),
+                $"catalog_{fileVersion}_{shortHash}.bin");
+            if (!string.Equals(
+                    Path.GetFullPath(sourcePath),
+                    Path.GetFullPath(targetPath),
+                    StringComparison.OrdinalIgnoreCase))
+            {
+                File.Copy(sourcePath, targetPath, true);
+            }
+            return targetPath;
         }
 
         private static void CopyDirectory(string sourceDirectory, string targetDirectory)

@@ -10,6 +10,7 @@ namespace WoguaShooter.Update
         [Serializable]
         public sealed class ActiveState
         {
+            public int cacheGeneration;
             public string contentVersion;
             public string catalogFile;
             public string catalogSha256;
@@ -88,6 +89,11 @@ namespace WoguaShooter.Update
             }
 
             File.Move(temporaryPath, ActiveStatePath);
+        }
+
+        public static void ClearAll()
+        {
+            DeleteDirectoryQuietly(RootDirectory);
         }
 
         public static bool VerifyFile(string path, string expectedSha256, out string error)

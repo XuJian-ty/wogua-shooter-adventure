@@ -21,8 +21,9 @@ namespace XLua.CSObjectWrap
         {
 			ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
 			System.Type type = typeof(WoguaShooter.Core.BackgroundScroller);
-			Utils.BeginObjectRegister(type, L, translator, 0, 0, 0, 0);
+			Utils.BeginObjectRegister(type, L, translator, 0, 1, 0, 0);
 			
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "ApplyLevelTheme", _m_ApplyLevelTheme);
 			
 			
 			
@@ -70,6 +71,35 @@ namespace XLua.CSObjectWrap
         
         
         
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_ApplyLevelTheme(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                WoguaShooter.Core.BackgroundScroller gen_to_be_invoked = (WoguaShooter.Core.BackgroundScroller)translator.FastGetCSObj(L, 1);
+            
+            
+                
+                {
+                    int _levelId = LuaAPI.xlua_tointeger(L, 2);
+                    
+                        var gen_ret = gen_to_be_invoked.ApplyLevelTheme( _levelId );
+                        translator.PushAny(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
         
         
         

@@ -19,7 +19,11 @@ namespace WoguaShooter.Update
             gameObject.SetActive(true);
             updateButton.gameObject.SetActive(true);
             titleText.text = string.IsNullOrWhiteSpace(manifest.title) ? "发现新版本" : manifest.title;
-            messageText.text = $"版本 {manifest.ResolvedVersion}\n{manifest.message}";
+            ConfigureMessageText();
+            string updateMessage = string.IsNullOrWhiteSpace(manifest.message)
+                ? "本次更新包含新的游戏内容。"
+                : manifest.message.Trim();
+            messageText.text = $"版本 {manifest.ResolvedVersion}\n{updateMessage}";
             statusText.text = string.Empty;
             updateButton.interactable = true;
             laterButton.interactable = true;
@@ -29,6 +33,17 @@ namespace WoguaShooter.Update
             laterButton.onClick.RemoveAllListeners();
             updateButton.onClick.AddListener(() => updateAction?.Invoke());
             laterButton.onClick.AddListener(() => laterAction?.Invoke());
+        }
+
+        private void ConfigureMessageText()
+        {
+            messageText.resizeTextForBestFit = true;
+            messageText.resizeTextMinSize = 18;
+            messageText.resizeTextMaxSize = 23;
+            messageText.alignment = TextAnchor.UpperLeft;
+            messageText.horizontalOverflow = HorizontalWrapMode.Wrap;
+            messageText.verticalOverflow = VerticalWrapMode.Truncate;
+            messageText.lineSpacing = 1.05f;
         }
 
         public void SetDownloading()

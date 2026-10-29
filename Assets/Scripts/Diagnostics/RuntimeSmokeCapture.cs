@@ -28,11 +28,26 @@ namespace WoguaShooter.Diagnostics
         {
             yield return new WaitForSecondsRealtime(3f);
 
+            string updateAction = GetArgumentValue("-updateAction");
             GameManager manager = FindFirstObjectByType<GameManager>();
             LuaRuntimeBridge lua = FindFirstObjectByType<LuaRuntimeBridge>();
+            if (string.IsNullOrEmpty(updateAction))
+            {
+                float loadDeadline = Time.realtimeSinceStartup + 15f;
+                while ((manager == null || lua == null || !lua.IsLoaded) &&
+                       Time.realtimeSinceStartup < loadDeadline)
+                {
+                    yield return null;
+                    manager = FindFirstObjectByType<GameManager>();
+                    lua = FindFirstObjectByType<LuaRuntimeBridge>();
+                }
+            }
             Debug.Log($"PLAYER_SMOKE game={(manager != null)}, lua={(lua != null && lua.IsLoaded)}, time={(manager != null ? manager.ElapsedTime : 0f):0.0}");
 
-            string updateAction = GetArgumentValue("-updateAction");
+            Text[] texts = FindObjectsByType<Text>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            Text versionText = System.Array.Find(texts, item => item != null && item.gameObject.name == "VersionText");
+            Debug.Log($"PLAYER_VERSION_LABEL={versionText?.text ?? "missing"}");
+
             if (!string.IsNullOrEmpty(updateAction))
                 yield return RunUpdateAction(updateAction);
 
@@ -67,18 +82,26 @@ namespace WoguaShooter.Diagnostics
                 yield break;
             }
 
-            button.onClick.Invoke();
             if (action == "accept")
             {
-                string patchPath = Path.Combine(Application.persistentDataPath, "HotUpdate", "game_rules.lua.txt");
-                deadline = Time.realtimeSinceStartup + 8f;
-                while (!File.Exists(patchPath) && Time.realtimeSinceStartup < deadline)
+                string previousVersion = Application.version;
+                if (HotUpdateStorage.TryLoadActive(out HotUpdateStorage.ActiveState previousState))
+                    previousVersion = previousState.contentVersion;
+
+                button.onClick.Invoke();
+                HotUpdateStorage.ActiveState activeState = null;
+                deadline = Time.realtimeSinceStartup + 30f;
+                while ((!HotUpdateStorage.TryLoadActive(out activeState) ||
+                        activeState.contentVersion == previousVersion) &&
+                       Time.realtimeSinceStartup < deadline)
                     yield return null;
 
-                Debug.Log($"UPDATE_SMOKE_ACCEPT patch={File.Exists(patchPath)}, version={PlayerPrefs.GetString("content_version", "none")}");
+                bool activated = activeState != null && activeState.contentVersion != previousVersion;
+                Debug.Log($"UPDATE_SMOKE_ACCEPT activated={activated}, version={activeState?.contentVersion ?? "none"}");
             }
             else
             {
+                button.onClick.Invoke();
                 yield return null;
                 Debug.Log($"UPDATE_SMOKE_LATER hidden={!panel.gameObject.activeInHierarchy}");
             }

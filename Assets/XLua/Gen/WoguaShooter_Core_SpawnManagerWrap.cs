@@ -21,9 +21,10 @@ namespace XLua.CSObjectWrap
         {
 			ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
 			System.Type type = typeof(WoguaShooter.Core.SpawnManager);
-			Utils.BeginObjectRegister(type, L, translator, 0, 7, 0, 0);
+			Utils.BeginObjectRegister(type, L, translator, 0, 8, 0, 0);
 			
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "BeginTutorialMode", _m_BeginTutorialMode);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "PrepareForLevel", _m_PrepareForLevel);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "StartTutorialGhostChallenge", _m_StartTutorialGhostChallenge);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "StartTutorialCoinChallenge", _m_StartTutorialCoinChallenge);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "StartTutorialSkeletonChallenge", _m_StartTutorialSkeletonChallenge);
@@ -93,6 +94,33 @@ namespace XLua.CSObjectWrap
                 {
                     
                     gen_to_be_invoked.BeginTutorialMode(  );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_PrepareForLevel(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                WoguaShooter.Core.SpawnManager gen_to_be_invoked = (WoguaShooter.Core.SpawnManager)translator.FastGetCSObj(L, 1);
+            
+            
+                
+                {
+                    
+                    gen_to_be_invoked.PrepareForLevel(  );
                     
                     
                     

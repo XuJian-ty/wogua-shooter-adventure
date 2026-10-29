@@ -35,6 +35,7 @@ namespace WoguaShooter.Core
         private readonly List<Enemy> tutorialEnemies = new List<Enemy>();
         private readonly List<CoinCollectible> tutorialCoins = new List<CoinCollectible>();
         private bool tutorialMode;
+        private bool spikeSpawnedThisRound;
 
         private void Start()
         {
@@ -58,10 +59,14 @@ namespace WoguaShooter.Core
         private IEnumerator HazardSpawnLoop()
         {
             yield return WaitForPlaying();
-            yield return new WaitForSeconds(6f);
+            yield return new WaitForSeconds(3f);
             while (true)
             {
-                yield return new WaitForSeconds(RandomInterval(hazardSpawnIntervalRange, 7f, 11f));
+                int levelId = GameManager.Instance != null ? GameManager.Instance.CurrentLevelId : 1;
+                float interval = luaRules != null
+                    ? luaRules.GetHazardSpawnInterval(hazardSpawnIntervalRange, levelId)
+                    : RandomInterval(hazardSpawnIntervalRange, 5.5f, 8f);
+                yield return new WaitForSeconds(interval);
                 if (CanSpawnNormalGameplay())
                     SpawnTerrainHazard();
             }
@@ -70,15 +75,44 @@ namespace WoguaShooter.Core
         private IEnumerator MissileSpawnLoop()
         {
             yield return WaitForPlaying();
+            bool waitingForRound = true;
+            float nextVolleyTime = 0f;
             while (true)
             {
-                yield return new WaitForSeconds(2f);
                 GameManager manager = GameManager.Instance;
-                if (!CanSpawnNormalGameplay() || manager == null || manager.ElapsedTime < Mathf.Max(20f, missileStartTime))
+                if (!CanSpawnNormalGameplay() || manager == null)
+                {
+                    waitingForRound = true;
+                    yield return new WaitForSeconds(0.35f);
                     continue;
+                }
 
-                SpawnMissile();
-                yield return new WaitForSeconds(RandomInterval(missileSpawnIntervalRange, 11f, 17f));
+                int levelId = manager.CurrentLevelId;
+                if (waitingForRound)
+                {
+                    waitingForRound = false;
+                    nextVolleyTime = manager.ElapsedTime + GetMissileInitialDelay(levelId);
+                }
+
+                if (manager.ElapsedTime < nextVolleyTime)
+                {
+                    yield return new WaitForSeconds(0.35f);
+                    continue;
+                }
+
+                int volleyCount = GetMissileVolleyCount(levelId);
+                for (int i = 0; i < volleyCount; i++)
+                {
+                    if (!CanSpawnNormalGameplay())
+                        break;
+                    SpawnMissile();
+                    if (i < volleyCount - 1)
+                        yield return new WaitForSeconds(GetMissileVolleyDelay(levelId));
+                }
+
+                manager = GameManager.Instance;
+                float elapsedTime = manager != null ? manager.ElapsedTime : 0f;
+                nextVolleyTime = elapsedTime + GetMissileSpawnInterval(levelId);
             }
         }
 
@@ -119,6 +153,11 @@ namespace WoguaShooter.Core
         {
             tutorialMode = true;
             StopTutorialChallenge();
+        }
+
+        public void PrepareForLevel()
+        {
+            spikeSpawnedThisRound = false;
         }
 
         public void StartTutorialGhostChallenge()
@@ -284,8 +323,9 @@ namespace WoguaShooter.Core
             GameConfig config = GameManager.Instance != null ? GameManager.Instance.Config : null;
             float time = GameManager.Instance != null ? GameManager.Instance.ElapsedTime : 0f;
             float fallback = config == null ? 2.4f : Mathf.Max(config.enemyMinInterval, config.enemyStartInterval - time * config.enemyIntervalAcceleration);
+            int levelId = GameManager.Instance != null ? GameManager.Instance.CurrentLevelId : 1;
             return luaRules != null
-                ? luaRules.GetEnemySpawnInterval(time, config.enemyStartInterval, config.enemyIntervalAcceleration, config.enemyMinInterval, fallback)
+                ? luaRules.GetEnemySpawnInterval(time, config.enemyStartInterval, config.enemyIntervalAcceleration, config.enemyMinInterval, levelId, fallback)
                 : fallback;
         }
 
@@ -416,8 +456,55 @@ namespace WoguaShooter.Core
                 return;
 
             float ground = GetGroundSurfaceY(config);
-            WorldHazardType type = Random.value < 0.58f ? WorldHazardType.Spikes : WorldHazardType.FirePit;
-            WorldHazard.Create(type, new Vector3(config.enemySpawnX + Random.Range(0f, 0.8f), ground, 0f));
+            int levelId = GameManager.Instance != null ? GameManager.Instance.CurrentLevelId : 1;
+            float spikeChance = luaRules != null ? luaRules.GetSpikeChance(levelId) : 0.58f;
+            float startX = config.enemySpawnX + Random.Range(0f, 0.8f);
+            if (!spikeSpawnedThisRound || Random.value < spikeChance)
+            {
+                int groupCount = luaRules != null
+                    ? luaRules.GetSpikeGroupCount(levelId)
+                    : Random.Range(1, 4);
+                for (int i = 0; i < groupCount; i++)
+                {
+                    WorldHazard.Create(
+                        WorldHazardType.Spikes,
+                        new Vector3(startX + i * 0.82f, ground, 0f));
+                }
+                spikeSpawnedThisRound = true;
+                return;
+            }
+
+            WorldHazard.Create(WorldHazardType.FirePit, new Vector3(startX, ground, 0f));
+        }
+
+        private float GetMissileInitialDelay(int levelId)
+        {
+            return luaRules != null
+                ? luaRules.GetMissileInitialDelay(levelId)
+                : Random.Range(4f, 7f);
+        }
+
+        private float GetMissileSpawnInterval(int levelId)
+        {
+            return luaRules != null
+                ? luaRules.GetMissileSpawnInterval(levelId)
+                : Random.Range(9f, 13f);
+        }
+
+        private float GetMissileVolleyDelay(int levelId)
+        {
+            return luaRules != null
+                ? luaRules.GetMissileVolleyDelay(levelId)
+                : Random.Range(0.55f, 0.9f);
+        }
+
+        private int GetMissileVolleyCount(int levelId)
+        {
+            if (luaRules != null)
+                return luaRules.GetMissileVolleyCount(levelId);
+
+            float value = Random.value;
+            return value < 0.5f ? 1 : value < 0.82f ? 2 : 3;
         }
 
         private void SpawnMissile()

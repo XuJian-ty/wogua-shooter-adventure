@@ -137,9 +137,6 @@ namespace WoguaShooter.Update
                     continue;
                 }
 
-                panel.SetComplete();
-                while (decision == UserDecision.None)
-                    yield return null;
                 break;
             }
 
@@ -362,6 +359,7 @@ namespace WoguaShooter.Update
 
             activeState = new HotUpdateStorage.ActiveState
             {
+                cacheGeneration = config.cacheGeneration,
                 contentVersion = manifest.ResolvedVersion,
                 catalogFile = catalogPath,
                 catalogSha256 = catalogSha256,

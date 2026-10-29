@@ -264,18 +264,26 @@ namespace WoguaShooter.Lua
             try
             {
                 nextEnvironment = new LuaEnv();
-                for (int i = 0; i < Modules.Length; i++)
+                for (int i = 0; i < Modules.Length - 1; i++)
                 {
                     ModuleSpec module = Modules[i];
                     nextEnvironment.DoString(sources[module.FileName], module.FileName);
                 }
 
+                LuaEnv previous = luaEnv;
+                if (previous != null)
+                {
+                    ClearHotfixCallbacks(previous);
+                    previous.Dispose();
+                    luaEnv = null;
+                }
+
+                ModuleSpec hotfixModule = Modules[Modules.Length - 1];
+                nextEnvironment.DoString(sources[hotfixModule.FileName], hotfixModule.FileName);
                 Debug.Log("HOTFIX_PROBE=" + HotfixAcceptanceProbe.GetMarker());
 
-                LuaEnv previous = luaEnv;
                 luaEnv = nextEnvironment;
                 nextEnvironment = null;
-                previous?.Dispose();
                 error = string.Empty;
                 return true;
             }
@@ -305,9 +313,35 @@ namespace WoguaShooter.Lua
         {
             if (instance != this)
                 return;
-            luaEnv?.Dispose();
+            if (luaEnv != null)
+            {
+                ClearHotfixCallbacks(luaEnv);
+                luaEnv.Dispose();
+            }
             luaEnv = null;
             instance = null;
+        }
+
+        private static void ClearHotfixCallbacks(LuaEnv environment)
+        {
+            LuaTable table = null;
+            LuaFunction clear = null;
+            try
+            {
+                table = environment.Global.Get<LuaTable>("HotfixMain");
+                clear = table?.Get<LuaFunction>("Clear");
+                clear?.Call();
+                environment.Tick();
+            }
+            catch (Exception exception)
+            {
+                Debug.LogWarning("清理 xLua 热修复回调失败：" + exception.Message);
+            }
+            finally
+            {
+                clear?.Dispose();
+                table?.Dispose();
+            }
         }
     }
 }

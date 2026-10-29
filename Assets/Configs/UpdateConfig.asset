@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: UpdateConfig
   m_EditorClassIdentifier: Assembly-CSharp::WoguaShooter.Config.UpdateConfig
   manifestUrl: https://update.xinyin.space/channels/stable-v2/android.json
-  timeoutSeconds: 5
+  timeoutSeconds: 60
   checkOnStart: 1
+  cacheGeneration: 1
   preloadLabel: hot-update-preload
   updatePanelAddress: ui/update
   gameRootAddress: game/root

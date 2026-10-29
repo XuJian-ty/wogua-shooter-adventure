@@ -32,31 +32,56 @@ namespace WoguaShooter.Addressables
             }
 
             Canvas bootstrapCanvas = CreateBootstrapCanvas(out GameObject eventSystem);
+
+            UpdateConfig updateConfig = null;
+            AsyncOperationHandle<UpdateConfig> configHandle =
+                UnityAddressables.LoadAssetAsync<UpdateConfig>(updateConfigAddress);
+            yield return configHandle;
+            if (configHandle.Status == AsyncOperationStatus.Succeeded)
+                updateConfig = configHandle.Result;
+            else
+                Debug.LogWarning("更新配置加载失败，本次使用代码默认配置。");
+
+            bool transientConfig = updateConfig == null;
+            if (transientConfig)
+                updateConfig = ScriptableObject.CreateInstance<UpdateConfig>();
+
             HotUpdateStorage.ActiveState activeState = null;
             UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator activeLocator = null;
             if (HotUpdateStorage.TryLoadActive(out HotUpdateStorage.ActiveState storedState))
             {
-                bool stateValid = true;
+                bool stateValid = storedState.cacheGeneration == updateConfig.cacheGeneration;
+                if (!stateValid)
+                {
+                    Debug.Log(
+                        $"热更新缓存世代已变化，清理旧缓存：" +
+                        $"{storedState.cacheGeneration} -> {updateConfig.cacheGeneration}");
+                    HotUpdateStorage.ClearAll();
+                }
+
                 if (!string.IsNullOrWhiteSpace(storedState.catalogFile))
                 {
-                    stateValid = HotUpdateStorage.VerifyFile(
-                        storedState.catalogFile,
-                        storedState.catalogSha256,
-                        out string catalogError);
-                    if (!stateValid)
-                        Debug.LogWarning("缓存资源目录校验失败，回退包内版本：" + catalogError);
-                    else
+                    if (stateValid)
                     {
-                        AsyncOperationHandle<UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator> catalog =
-                            UnityAddressables.LoadContentCatalogAsync(new Uri(storedState.catalogFile).AbsoluteUri, false);
-                        yield return catalog;
-                        stateValid = catalog.Status == AsyncOperationStatus.Succeeded;
-                        if (stateValid)
-                            activeLocator = catalog.Result;
+                        stateValid = HotUpdateStorage.VerifyFile(
+                            storedState.catalogFile,
+                            storedState.catalogSha256,
+                            out string catalogError);
+                        if (!stateValid)
+                            Debug.LogWarning("缓存资源目录校验失败，回退包内版本：" + catalogError);
                         else
-                            Debug.LogWarning("缓存资源目录加载失败，回退包内版本。");
-                        if (catalog.IsValid())
-                            UnityAddressables.Release(catalog);
+                        {
+                            AsyncOperationHandle<UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator> catalog =
+                                UnityAddressables.LoadContentCatalogAsync(new Uri(storedState.catalogFile).AbsoluteUri, false);
+                            yield return catalog;
+                            stateValid = catalog.Status == AsyncOperationStatus.Succeeded;
+                            if (stateValid)
+                                activeLocator = catalog.Result;
+                            else
+                                Debug.LogWarning("缓存资源目录加载失败，回退包内版本。");
+                            if (catalog.IsValid())
+                                UnityAddressables.Release(catalog);
+                        }
                     }
                 }
 
@@ -95,19 +120,6 @@ namespace WoguaShooter.Addressables
             HotUpdateState.ContentVersion = activeState != null
                 ? activeState.contentVersion
                 : Application.version;
-
-            UpdateConfig updateConfig = null;
-            AsyncOperationHandle<UpdateConfig> configHandle =
-                UnityAddressables.LoadAssetAsync<UpdateConfig>(updateConfigAddress);
-            yield return configHandle;
-            if (configHandle.Status == AsyncOperationStatus.Succeeded)
-                updateConfig = configHandle.Result;
-            else
-                Debug.LogWarning("更新配置加载失败，本次使用代码默认配置。");
-
-            bool transientConfig = updateConfig == null;
-            if (transientConfig)
-                updateConfig = ScriptableObject.CreateInstance<UpdateConfig>();
 
             BootstrapUpdateController updater = gameObject.AddComponent<BootstrapUpdateController>();
             yield return updater.Run(updateConfig, bootstrapCanvas, luaRuntime, activeState);
@@ -156,6 +168,8 @@ namespace WoguaShooter.Addressables
             scaler.referenceResolution = new Vector2(1920f, 1080f);
             scaler.matchWidthOrHeight = 0.5f;
 
+            CreateBootstrapBackdrop(canvasObject.transform);
+
             eventSystemObject = null;
             if (FindFirstObjectByType<EventSystem>() == null)
             {
@@ -165,6 +179,27 @@ namespace WoguaShooter.Addressables
                     typeof(InputSystemUIInputModule));
             }
             return canvas;
+        }
+
+        private static void CreateBootstrapBackdrop(Transform parent)
+        {
+            GameObject backdropObject = new GameObject(
+                "BootstrapBackdrop",
+                typeof(RectTransform),
+                typeof(CanvasRenderer),
+                typeof(Image));
+            backdropObject.transform.SetParent(parent, false);
+            backdropObject.transform.SetAsFirstSibling();
+
+            RectTransform rect = backdropObject.GetComponent<RectTransform>();
+            rect.anchorMin = Vector2.zero;
+            rect.anchorMax = Vector2.one;
+            rect.offsetMin = Vector2.zero;
+            rect.offsetMax = Vector2.zero;
+
+            Image backdrop = backdropObject.GetComponent<Image>();
+            backdrop.color = Color.black;
+            backdrop.raycastTarget = false;
         }
     }
 }

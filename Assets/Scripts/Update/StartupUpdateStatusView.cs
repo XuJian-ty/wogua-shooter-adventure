@@ -35,8 +35,8 @@ namespace WoguaShooter.Update
             RectTransform rootRect = root.GetComponent<RectTransform>();
             rootRect.anchorMin = rootRect.anchorMax = new Vector2(0.5f, 0f);
             rootRect.pivot = new Vector2(0.5f, 0f);
-            rootRect.anchoredPosition = new Vector2(0f, 24f);
-            rootRect.sizeDelta = new Vector2(580f, 48f);
+            rootRect.anchoredPosition = new Vector2(0f, 26f);
+            rootRect.sizeDelta = new Vector2(660f, 62f);
 
             StartupUpdateStatusView view = root.GetComponent<StartupUpdateStatusView>();
             view.canvasGroup = root.GetComponent<CanvasGroup>();
@@ -153,14 +153,17 @@ namespace WoguaShooter.Update
             rect.anchorMax = new Vector2(1f, 1f);
             rect.pivot = new Vector2(0.5f, 1f);
             rect.anchoredPosition = Vector2.zero;
-            rect.sizeDelta = new Vector2(0f, 30f);
+            rect.sizeDelta = new Vector2(0f, 32f);
 
             Text text = textObject.GetComponent<Text>();
             text.font = font != null ? font : Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             text.fontSize = 18;
             text.alignment = TextAnchor.MiddleCenter;
-            text.horizontalOverflow = HorizontalWrapMode.Overflow;
+            text.horizontalOverflow = HorizontalWrapMode.Wrap;
             text.verticalOverflow = VerticalWrapMode.Truncate;
+            text.resizeTextForBestFit = true;
+            text.resizeTextMinSize = 15;
+            text.resizeTextMaxSize = 18;
             text.raycastTarget = false;
             return text;
         }
@@ -178,8 +181,8 @@ namespace WoguaShooter.Update
             trackRect.anchorMin = new Vector2(0.5f, 0f);
             trackRect.anchorMax = new Vector2(0.5f, 0f);
             trackRect.pivot = new Vector2(0.5f, 0f);
-            trackRect.anchoredPosition = new Vector2(0f, 3f);
-            trackRect.sizeDelta = new Vector2(520f, 5f);
+            trackRect.anchoredPosition = new Vector2(0f, 5f);
+            trackRect.sizeDelta = new Vector2(560f, 4f);
 
             Image track = trackObject.GetComponent<Image>();
             track.color = new Color(0f, 0f, 0f, 0.42f);

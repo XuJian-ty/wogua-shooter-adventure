@@ -39,6 +39,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - hot-update-preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f3ff6b4ddebdf60438256421443bffd5
+    m_Address: map/level2/background/1.0.1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - hot-update-preload
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1b5c420f1df22fe44b895b607ceb9325, type: 2}
   m_SchemaSet:

@@ -1,5 +1,83 @@
--- 业务类已由 xLua Hotfix 注入。正式补丁可在此使用 xlua.hotfix 覆盖 C# 方法。
--- 启动器会最后执行本文件，保证规则模块已经全部加载。
+local PlayerController = CS.WoguaShooter.Core.PlayerController
+local HotfixAcceptanceProbe = CS.WoguaShooter.Diagnostics.HotfixAcceptanceProbe
+local Mathf = CS.UnityEngine.Mathf
+local Time = CS.UnityEngine.Time
+local Color = CS.UnityEngine.Color
+
+-- 护盾自然到期后追加 3 秒无敌，并保持原有强化计时逻辑。
+xlua.hotfix(PlayerController, 'TickPowerUps', function(self, deltaTime)
+    self.magnetTime = Mathf.Max(0, self.magnetTime - deltaTime)
+    self.damageInvincibleTime = Mathf.Max(0, self.damageInvincibleTime - deltaTime)
+
+    local shieldWasActive = self.shieldTime > 0
+    self.shieldTime = Mathf.Max(0, self.shieldTime - deltaTime)
+    if shieldWasActive and self.shieldTime <= 0 and not self.shieldBreaking then
+        self.damageInvincibleTime = Mathf.Max(
+            self.damageInvincibleTime,
+            PlayerRules.postShieldInvincibleDuration)
+        self:SetShieldVisualVisible(false)
+    end
+
+    self.growthTime = Mathf.Max(0, self.growthTime - deltaTime)
+    self.growthBlend = Mathf.MoveTowards(
+        self.growthBlend,
+        self.growthTime > 0 and 1 or 0,
+        deltaTime * 4)
+    self:UpdateGrowthCollider()
+    self:UpdateDamageInvincibilityVisual()
+    self:UpdateShieldVisual()
+end)
+
+-- 复用护盾破碎时的半透明闪烁，提示变大效果只剩最后 3 秒。
+xlua.hotfix(PlayerController, 'UpdateDamageInvincibilityVisual', function(self)
+    local renderers = self.playerVisualRenderers
+    local baseColors = self.playerVisualBaseColors
+    if renderers == nil or baseColors == nil then
+        return
+    end
+
+    local alphaMultiplier = 1
+    if PlayerRules.ShouldBlink(self.damageInvincibleTime, self.growthTime) then
+        alphaMultiplier = 0.58 + math.sin(Time.unscaledTime * 11) * 0.1
+    end
+
+    local count = math.min(renderers.Length, baseColors.Length)
+    for index = 0, count - 1 do
+        local renderer = renderers[index]
+        if renderer ~= nil then
+            local baseColor = baseColors[index]
+            renderer.color = Color(
+                baseColor.r,
+                baseColor.g,
+                baseColor.b,
+                baseColor.a * alphaMultiplier)
+        end
+    end
+end)
+
+-- 磁铁吸附范围改为角色前方 3 米，后方容差沿用原来的 0.75 米。
+xlua.hotfix(PlayerController, 'CanMagnetAttract', function(self, worldPosition)
+    if self.magnetTime <= 0 then
+        return false
+    end
+
+    local horizontalOffset = worldPosition.x - self.transform.position.x
+    return horizontalOffset <= PlayerRules.magnetForwardRange and horizontalOffset >= -0.75
+end)
+
+-- 用日志标记确认本次调用确实进入了热修复方法。
+xlua.hotfix(HotfixAcceptanceProbe, 'GetMarker', function()
+    return 'PATCH_1.0.0'
+end)
+
 HotfixMain = {
-    version = HotUpdateConfig.version
+    version = HotUpdateConfig.version,
+    features = 'shield_expiry_invincibility,growth_warning,magnet_range_3m'
 }
+
+function HotfixMain.Clear()
+    xlua.hotfix(PlayerController, 'TickPowerUps', nil)
+    xlua.hotfix(PlayerController, 'UpdateDamageInvincibilityVisual', nil)
+    xlua.hotfix(PlayerController, 'CanMagnetAttract', nil)
+    xlua.hotfix(HotfixAcceptanceProbe, 'GetMarker', nil)
+end
